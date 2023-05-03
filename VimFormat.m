@@ -12,23 +12,40 @@ DisplayEquation::usage="DisplayEquation";
 DisplayExpression::usage="DisplayExpression";
 PartIIIProject::usage="PartIIIProject";
 Manuscript::usage="Manuscript";
+Supercomment::usage="Manuscript";
 Cref::usage="Cref";
+Mref::usage="Mref";
+Inline::usage="Inline";
+Mlabel::usage="Mlabel";
 EqnLabel::usage="EqnLabel";
 
 Begin["VimFormat`Private`"];
 
-Manuscript[Expr_?StringQ]:=Module[{},
-	CellPrint@TextCell[TextGrid[{{Style["Manuscript",Bold],Expr}},Frame->All],Darker@Green,"Text",Background->Yellow]];
+Manuscript[Expr_?StringQ]:=Manuscript[{Expr}];
+Manuscript[Expr_?ListQ]:=Module[{},
+	CellPrint@Cell[TextData@({StyleBox["Concrete relation to manuscript: ",Large,FontWeight->Bold]}~Join~Flatten@Expr),Darker@Green,"Text",Background->Yellow]];
+
+Supercomment[Expr_?StringQ]:=Manuscript[{Expr}];
+Supercomment[Expr_?ListQ]:=Module[{},
+	CellPrint@Cell[TextData@({StyleBox["Key observation: ",Large,FontWeight->Bold]}~Join~Flatten@Expr),Darker@Green,"Text",Background->Yellow]];
 
 PartIIIProject[Expr_?StringQ]:=Module[{},
 	CellPrint@TextCell[TextGrid[{{Style["Connection to Part III project",Bold],Expr}},Frame->All],Darker@Green,"Text",Background->Yellow]];
 
-Cref[CellTagName_?StringQ]:={" (",CounterBox["DisplayFormulaNumbered",CellTagName],")"};
 
-Comment[Expr_?ListQ]:=CellPrint@Cell[TextData@Flatten@Expr,Darker@Green,"Text"];
+Cref[CellTagNameList_?ListQ]:=Join[{" Eqs."},{" (",CounterBox["DisplayFormulaNumbered",#],"),"}&/@Drop[CellTagNameList,-1],{" and (",CounterBox["DisplayFormulaNumbered",CellTagNameList[[-1]]],")"}];
 
+Cref[CellTagName_?StringQ]:={" Eq. (",CounterBox["DisplayFormulaNumbered",CellTagName],")"};
+Mref[ManuscriptEquationLabel_?StringQ]:={" Eq. (",ToString@(Mlabel@ManuscriptEquationLabel),")"};
+Inline[Expr_]:=Module[{CellToDisplay},	
+	(*CellToDisplay=ExpressionCell[Expr,CellContext->"Global`"];*)
+	CellToDisplay=Cell[BoxData@MakeBoxes@Expr,CellContext->"Global`"];
+{" ",CellToDisplay}];
+
+
+Comment[Expr_?ListQ]:=CellPrint@Cell[TextData@Flatten@Expr,Darker@Green,"Text",CellContext->"Global`"];
 Comment[Expr_?StringQ]:=Module[{},
-	CellPrint@TextCell[Expr,Darker@Green,"Text"]];
+	CellPrint@TextCell[Expr,Darker@Green,"Text",CellContext->"Global`"]];
 
 Title[Expr_?StringQ]:=Module[{},
 	CellPrint@TextCell[Expr,40,Darker@Green,Underlined,Bold,"Text"]];
