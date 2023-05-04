@@ -31,7 +31,7 @@ Supercomment[Expr_?ListQ]:=Module[{},
 
 PartIIIProject[Expr_?StringQ]:=PartIIIProject[{Expr}];
 PartIIIProject[Expr_?ListQ]:=Module[{},
-	CellPrint@Cell[TextData@({StyleBox["Connection to Part III Project: ",Large,FontWeight->Bold]}~Join~Flatten@Expr),Darker@Green,"Text",Background->Yellow]];
+	CellPrint@Cell[TextData@({StyleBox["Key observation: ",Large,FontWeight->Bold]}~Join~Flatten@Expr),Darker@Green,"Text",Background->Yellow]];
 (*
 PartIIIProject[Expr_?StringQ]:=Module[{},
 	CellPrint@TextCell[TextGrid[{{Style["Connection to Part III project",Bold],Expr}},Frame->All],Darker@Green,"Text",Background->Yellow]];
