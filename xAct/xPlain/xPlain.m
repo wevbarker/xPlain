@@ -7,7 +7,7 @@
 (*------------------------------*)
 
 (*
-xAct`xPlain`$Version={"1.0.0",{2022,11,4}};
+xAct`xPlain`$Version={"1.0.0",{2023,11,4}};
 *)
 xAct`xPlain`$Version={"1.0.0-developer",DateList@FileDate@$InputFileName~Drop~(-3)};
 
@@ -30,7 +30,7 @@ SetOptions[$FrontEndSession,EvaluationCompletionAction->"ScrollToOutput"];
 
 Print[xAct`xCore`Private`bars];
 Print["Package xAct`xPlain` version ",$Version[[1]],", ",$Version[[2]]];
-Print["CopyRight \[Copyright] 2022, Will E. V. Barker and Sebastian Zell, under the General Public License."];
+Print["CopyRight \[Copyright] 2023, Will E. V. Barker and Sebastian Zell, under the General Public License."];
 
 (*--------------*)
 (*  Disclaimer  *)
