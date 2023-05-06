@@ -1,8 +1,46 @@
-(*=============*)
-(*  VimFormat  *)
-(*=============*)
+(*==========*)
+(*  xPlain  *)
+(*==========*)
 
-BeginPackage["VimFormat`"];
+(*------------------------------*)
+(*  Change version number here  *)
+(*------------------------------*)
+
+(*
+xAct`xPlain`$Version={"1.0.0",{2022,11,4}};
+*)
+xAct`xPlain`$Version={"1.0.0-developer",DateList@FileDate@$InputFileName~Drop~(-3)};
+
+If[Unevaluated[xAct`xCore`Private`$LastPackage]===xAct`xCore`Private`$LastPackage,xAct`xCore`Private`$LastPackage="xAct`xPlain`"];
+
+(* here is an error-killing line, I can't quite remember why we needed it! *)
+Off@(Solve::fulldim);
+
+(*=================*)
+(*  xAct`xPlain`  *)
+(*=================*)
+
+BeginPackage["xAct`xPlain`",{"xAct`xTensor`"}];
+
+(*========================================================================*)
+(*  The output can be long, we prefer to scroll automatically to the end  *)
+(*========================================================================*)
+
+SetOptions[$FrontEndSession,EvaluationCompletionAction->"ScrollToOutput"];
+
+Print[xAct`xCore`Private`bars];
+Print["Package xAct`xPlain` version ",$Version[[1]],", ",$Version[[2]]];
+Print["CopyRight \[Copyright] 2022, Will E. V. Barker and Sebastian Zell, under the General Public License."];
+
+(*--------------*)
+(*  Disclaimer  *)
+(*--------------*)
+
+If[xAct`xCore`Private`$LastPackage==="xAct`xPlain`",
+Unset[xAct`xCore`Private`$LastPackage];
+Print[xAct`xCore`Private`bars];
+Print["These packages come with ABSOLUTELY NO WARRANTY; for details type Disclaimer[]. This is free software, and you are welcome to redistribute it under certain conditions. See the General Public License for details."];
+Print[xAct`xCore`Private`bars]];
 
 Comment::usage="Comment";
 Title::usage="Title";
@@ -19,7 +57,7 @@ Inline::usage="Inline";
 Mlabel::usage="Mlabel";
 EqnLabel::usage="EqnLabel";
 
-Begin["VimFormat`Private`"];
+Begin["xAct`xPlain`Private`"];
 
 Manuscript[Expr_?StringQ]:=Manuscript[{Expr}];
 Manuscript[Expr_?ListQ]:=Module[{},
@@ -31,7 +69,7 @@ Supercomment[Expr_?ListQ]:=Module[{},
 
 PartIIIProject[Expr_?StringQ]:=PartIIIProject[{Expr}];
 PartIIIProject[Expr_?ListQ]:=Module[{},
-	CellPrint@Cell[TextData@({StyleBox["Key observation: ",Large,FontWeight->Bold]}~Join~Flatten@Expr),Darker@Green,"Text",Background->Yellow]];
+	CellPrint@Cell[TextData@({StyleBox["Connection to Part III Project: ",Large,FontWeight->Bold]}~Join~Flatten@Expr),Darker@Green,"Text",Background->Yellow]];
 (*
 PartIIIProject[Expr_?StringQ]:=Module[{},
 	CellPrint@TextCell[TextGrid[{{Style["Connection to Part III project",Bold],Expr}},Frame->All],Darker@Green,"Text",Background->Yellow]];

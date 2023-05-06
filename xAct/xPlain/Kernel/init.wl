@@ -2,4 +2,4 @@
 (*  Load the package  *)
 (*====================*)
 
-Get["VimFormat/VimFormat.m"]
+Get["xAct/xPlain/xPlain.m"]
