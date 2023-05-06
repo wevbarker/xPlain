@@ -3,7 +3,7 @@
 
 ## License
 
-Copyright © 2022 Will E. V. Barker and Sebastian Zell 
+Copyright © 2023 Will E. V. Barker and Sebastian Zell 
 
 xPlain is distributed as free software under the [GNU General Public License (GPL)](https://www.gnu.org/licenses/gpl-3.0.en.html).
 
