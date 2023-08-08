@@ -1,0 +1,230 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 13.2' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      8806,        222]
+NotebookOptionsPosition[      6987,        189]
+NotebookOutlinePosition[      7389,        205]
+CellTagsIndexPosition[      7346,        202]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Get", "@", 
+   RowBox[{"FileNameJoin", "@", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"NotebookDirectory", "[", "]"}], ",", "\"\<Examples.m\>\""}], 
+     "}"}]}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.900427849667678*^9, 3.9004278797014503`*^9}},
+ CellLabel->"In[1]:=",ExpressionUUID->"af4762bd-f44e-4222-9b69-30f17e2f379f"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData["\<\"------------------------------------------------------------\
+\"\>"], "Print",
+ CellChangeTimes->{{3.900427883653977*^9, 3.9004279086384583`*^9}, 
+   3.9004279675175323`*^9, 3.900428049328095*^9},
+ CellLabel->
+  "During evaluation of \
+In[1]:=",ExpressionUUID->"72400c8e-728d-429e-920e-f40373570539"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Package xAct`xPerm`  version \"\>", 
+   "\[InvisibleSpace]", "\<\"1.2.3\"\>", "\[InvisibleSpace]", "\<\", \"\>", 
+   "\[InvisibleSpace]", 
+   RowBox[{"{", 
+    RowBox[{"2015", ",", "8", ",", "23"}], "}"}]}],
+  SequenceForm["Package xAct`xPerm`  version ", "1.2.3", ", ", {2015, 8, 23}],
+  
+  Editable->False]], "Print",
+ CellChangeTimes->{{3.900427883653977*^9, 3.9004279086384583`*^9}, 
+   3.9004279675175323`*^9, 3.900428049332089*^9},
+ CellLabel->
+  "During evaluation of \
+In[1]:=",ExpressionUUID->"80759a06-adb5-4463-9261-d7ac4f636f68"],
+
+Cell[BoxData["\<\"CopyRight (C) 2003-2020, Jose M. Martin-Garcia, under the \
+General Public License.\"\>"], "Print",
+ CellChangeTimes->{{3.900427883653977*^9, 3.9004279086384583`*^9}, 
+   3.9004279675175323`*^9, 3.9004280493360023`*^9},
+ CellLabel->
+  "During evaluation of \
+In[1]:=",ExpressionUUID->"87f6d37f-5f9f-4f4c-80da-5612415600d0"],
+
+Cell[BoxData["\<\"Connecting to external linux executable...\"\>"], "Print",
+ CellChangeTimes->{{3.900427883653977*^9, 3.9004279086384583`*^9}, 
+   3.9004279675175323`*^9, 3.900428049434054*^9},
+ CellLabel->
+  "During evaluation of \
+In[1]:=",ExpressionUUID->"9dfbaf07-d755-42be-a318-3e865dce8910"],
+
+Cell[BoxData["\<\"Connection established.\"\>"], "Print",
+ CellChangeTimes->{{3.900427883653977*^9, 3.9004279086384583`*^9}, 
+   3.9004279675175323`*^9, 3.9004280495106792`*^9},
+ CellLabel->
+  "During evaluation of \
+In[1]:=",ExpressionUUID->"6399664d-5774-4d01-9fd8-a37bcfd799dd"],
+
+Cell[BoxData["\<\"------------------------------------------------------------\
+\"\>"], "Print",
+ CellChangeTimes->{{3.900427883653977*^9, 3.9004279086384583`*^9}, 
+   3.9004279675175323`*^9, 3.900428049512965*^9},
+ CellLabel->
+  "During evaluation of \
+In[1]:=",ExpressionUUID->"dd7f1f05-8d4d-49dc-a3d9-8e5d0ec6ee42"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Package xAct`xTensor`  version \"\>", 
+   "\[InvisibleSpace]", "\<\"1.2.0\"\>", "\[InvisibleSpace]", "\<\", \"\>", 
+   "\[InvisibleSpace]", 
+   RowBox[{"{", 
+    RowBox[{"2021", ",", "10", ",", "17"}], "}"}]}],
+  SequenceForm[
+  "Package xAct`xTensor`  version ", "1.2.0", ", ", {2021, 10, 17}],
+  Editable->False]], "Print",
+ CellChangeTimes->{{3.900427883653977*^9, 3.9004279086384583`*^9}, 
+   3.9004279675175323`*^9, 3.9004280495150957`*^9},
+ CellLabel->
+  "During evaluation of \
+In[1]:=",ExpressionUUID->"c58a1075-b675-4e0e-b50d-339fe4363327"],
+
+Cell[BoxData["\<\"CopyRight (C) 2002-2021, Jose M. Martin-Garcia, under the \
+General Public License.\"\>"], "Print",
+ CellChangeTimes->{{3.900427883653977*^9, 3.9004279086384583`*^9}, 
+   3.9004279675175323`*^9, 3.9004280495171137`*^9},
+ CellLabel->
+  "During evaluation of \
+In[1]:=",ExpressionUUID->"e51c96d1-40f1-44ef-bc22-79ad560b484b"],
+
+Cell[BoxData["\<\"------------------------------------------------------------\
+\"\>"], "Print",
+ CellChangeTimes->{{3.900427883653977*^9, 3.9004279086384583`*^9}, 
+   3.9004279675175323`*^9, 3.900428049682851*^9},
+ CellLabel->
+  "During evaluation of \
+In[1]:=",ExpressionUUID->"929a2c7b-bdb9-43c1-987e-97eef0e364ba"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Package xAct`xPlain` version \"\>", 
+   "\[InvisibleSpace]", "\<\"1.0.0-developer\"\>", 
+   "\[InvisibleSpace]", "\<\", \"\>", "\[InvisibleSpace]", 
+   RowBox[{"{", 
+    RowBox[{"2023", ",", "8", ",", "7"}], "}"}]}],
+  SequenceForm[
+  "Package xAct`xPlain` version ", "1.0.0-developer", ", ", {2023, 8, 7}],
+  Editable->False]], "Print",
+ CellChangeTimes->{{3.900427883653977*^9, 3.9004279086384583`*^9}, 
+   3.9004279675175323`*^9, 3.900428049687261*^9},
+ CellLabel->
+  "During evaluation of \
+In[1]:=",ExpressionUUID->"82098ccc-2623-4f32-8b5f-809615a30d6d"],
+
+Cell[BoxData["\<\"CopyRight \[Copyright] 2023, Will E. V. Barker and \
+Sebastian Zell, under the General Public License.\"\>"], "Print",
+ CellChangeTimes->{{3.900427883653977*^9, 3.9004279086384583`*^9}, 
+   3.9004279675175323`*^9, 3.9004280496915207`*^9},
+ CellLabel->
+  "During evaluation of \
+In[1]:=",ExpressionUUID->"f19b61a8-3527-41e5-b4c3-a8511d37eef1"],
+
+Cell[BoxData["\<\"------------------------------------------------------------\
+\"\>"], "Print",
+ CellChangeTimes->{{3.900427883653977*^9, 3.9004279086384583`*^9}, 
+   3.9004279675175323`*^9, 3.90042804969557*^9},
+ CellLabel->
+  "During evaluation of \
+In[1]:=",ExpressionUUID->"e8ec9839-f7b1-49cb-8e9f-c1a8299c694c"],
+
+Cell[BoxData["\<\"These packages come with ABSOLUTELY NO WARRANTY; for \
+details type Disclaimer[]. This is free software, and you are welcome to \
+redistribute it under certain conditions. See the General Public License for \
+details.\"\>"], "Print",
+ CellChangeTimes->{{3.900427883653977*^9, 3.9004279086384583`*^9}, 
+   3.9004279675175323`*^9, 3.900428049699533*^9},
+ CellLabel->
+  "During evaluation of \
+In[1]:=",ExpressionUUID->"2158d540-01e6-4cb3-be74-ebd13ac4497c"],
+
+Cell[BoxData["\<\"------------------------------------------------------------\
+\"\>"], "Print",
+ CellChangeTimes->{{3.900427883653977*^9, 3.9004279086384583`*^9}, 
+   3.9004279675175323`*^9, 3.9004280497043753`*^9},
+ CellLabel->
+  "During evaluation of \
+In[1]:=",ExpressionUUID->"36019a44-79a5-4c47-b7f0-eb0f0ab65e49"]
+}, Open  ]]
+}, Open  ]],
+
+Cell["Next trying some listings", "Text",
+ CellContext->"Global`",
+ GeneratedCell->True,
+ CellAutoOverwrite->True,
+ CellChangeTimes->{3.900428049814601*^9},
+ LineColor->RGBColor[0, 
+   Rational[2, 3], 0],
+ FrontFaceColor->RGBColor[0, 
+   Rational[2, 3], 0],
+ BackFaceColor->RGBColor[0, 
+   Rational[2, 3], 0],
+ GraphicsColor->RGBColor[0, 
+   Rational[2, 3], 0],
+ FontColor->RGBColor[0, 
+   Rational[2, 3], 0],ExpressionUUID->"a06b40a3-fa1a-4003-a8f0-6b1d3f5e2b96"]
+},
+WindowSize->{1440., 860.25},
+WindowMargins->{{1440, Automatic}, {Automatic, 19.5}},
+FrontEndVersion->"13.2 for Linux x86 (64-bit) (December 7, 2022)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"56c4f1b2-080a-41de-a5de-574f74f0ef0e"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 367, 9, 29, "Input",ExpressionUUID->"af4762bd-f44e-4222-9b69-30f17e2f379f"],
+Cell[CellGroupData[{
+Cell[972, 35, 318, 6, 23, "Print",ExpressionUUID->"72400c8e-728d-429e-920e-f40373570539"],
+Cell[1293, 43, 590, 14, 25, "Print",ExpressionUUID->"80759a06-adb5-4463-9261-d7ac4f636f68"],
+Cell[1886, 59, 341, 6, 25, "Print",ExpressionUUID->"87f6d37f-5f9f-4f4c-80da-5612415600d0"],
+Cell[2230, 67, 298, 5, 25, "Print",ExpressionUUID->"9dfbaf07-d755-42be-a318-3e865dce8910"],
+Cell[2531, 74, 281, 5, 25, "Print",ExpressionUUID->"6399664d-5774-4d01-9fd8-a37bcfd799dd"],
+Cell[2815, 81, 318, 6, 23, "Print",ExpressionUUID->"dd7f1f05-8d4d-49dc-a3d9-8e5d0ec6ee42"],
+Cell[3136, 89, 598, 14, 25, "Print",ExpressionUUID->"c58a1075-b675-4e0e-b50d-339fe4363327"],
+Cell[3737, 105, 341, 6, 25, "Print",ExpressionUUID->"e51c96d1-40f1-44ef-bc22-79ad560b484b"],
+Cell[4081, 113, 318, 6, 23, "Print",ExpressionUUID->"929a2c7b-bdb9-43c1-987e-97eef0e364ba"],
+Cell[4402, 121, 608, 14, 25, "Print",ExpressionUUID->"82098ccc-2623-4f32-8b5f-809615a30d6d"],
+Cell[5013, 137, 360, 6, 25, "Print",ExpressionUUID->"f19b61a8-3527-41e5-b4c3-a8511d37eef1"],
+Cell[5376, 145, 317, 6, 23, "Print",ExpressionUUID->"e8ec9839-f7b1-49cb-8e9f-c1a8299c694c"],
+Cell[5696, 153, 473, 8, 45, "Print",ExpressionUUID->"2158d540-01e6-4cb3-be74-ebd13ac4497c"],
+Cell[6172, 163, 320, 6, 23, "Print",ExpressionUUID->"36019a44-79a5-4c47-b7f0-eb0f0ab65e49"]
+}, Open  ]]
+}, Open  ]],
+Cell[6519, 173, 464, 14, 35, InheritFromParent,ExpressionUUID->"a06b40a3-fa1a-4003-a8f0-6b1d3f5e2b96"]
+}
+]
+*)
+

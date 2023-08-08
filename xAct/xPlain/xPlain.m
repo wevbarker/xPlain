@@ -32,6 +32,13 @@ Print[xAct`xCore`Private`bars];
 Print["Package xAct`xPlain` version ",$Version[[1]],", ",$Version[[2]]];
 Print["CopyRight \[Copyright] 2023, Will E. V. Barker and Sebastian Zell, under the General Public License."];
 
+(*-------------------------------------------------------------------*)
+(*  Modify the path to accommodate notebook and install directories  *)
+(*-------------------------------------------------------------------*)
+
+$Path~AppendTo~NotebookDirectory[];
+$xPlainInstallDirectory=Select[FileNameJoin[{#,"xAct/xPlain"}]&/@$Path,DirectoryQ][[1]];
+
 (*--------------*)
 (*  Disclaimer  *)
 (*--------------*)
@@ -42,20 +49,37 @@ Print[xAct`xCore`Private`bars];
 Print["These packages come with ABSOLUTELY NO WARRANTY; for details type Disclaimer[]. This is free software, and you are welcome to redistribute it under certain conditions. See the General Public License for details."];
 Print[xAct`xCore`Private`bars]];
 
-Comment::usage="Comment";
 Title::usage="Title";
 Section::usage="Section";
 Subsection::usage="Subsection";
-DisplayEquation::usage="DisplayEquation";
-DisplayExpression::usage="DisplayExpression";
-PartIIIProject::usage="PartIIIProject";
-Manuscript::usage="Manuscript";
+
+Comment::usage="Comment";
 Supercomment::usage="Manuscript";
+
 Cref::usage="Cref";
 Mref::usage="Mref";
 Inline::usage="Inline";
 Mlabel::usage="Mlabel";
+
+DisplayEquation::usage="DisplayEquation";
+DisplayExpression::usage="DisplayExpression";
 EqnLabel::usage="EqnLabel";
+
+$PaperPrint::usage="$PaperPrint is a global bool.";
+$PaperPrint=True;
+$Widetext::usage="$Widetext is a global bool.";
+$Widetext=True;
+$ListingsOutput::usage="$ListingsOutput is a globally-defined string which defines the name associated with the LstListing output.";
+LstListingIn::usage="LstListing[Expr_] produces LaTeX listings.";
+LstListingOut::usage="LstListing[Expr_] produces LaTeX listings.";
+
+(*legacy*)
+PartIIIProject::usage="PartIIIProject";
+Manuscript::usage="Manuscript";
+
+NovelOutput::usage="Manuscript";
+NovelEcho::usage="Manuscript";
+NovelPrint::usage="Manuscript";
 
 Begin["xAct`xPlain`Private`"];
 
@@ -70,11 +94,6 @@ Supercomment[Expr_?ListQ]:=Module[{},
 PartIIIProject[Expr_?StringQ]:=PartIIIProject[{Expr}];
 PartIIIProject[Expr_?ListQ]:=Module[{},
 	CellPrint@Cell[TextData@({StyleBox["Connection to Part III Project: ",Large,FontWeight->Bold]}~Join~Flatten@Expr),Darker@Green,"Text",Background->Yellow]];
-(*
-PartIIIProject[Expr_?StringQ]:=Module[{},
-	CellPrint@TextCell[TextGrid[{{Style["Connection to Part III project",Bold],Expr}},Frame->All],Darker@Green,"Text",Background->Yellow]];
-*)
-
 
 Cref[CellTagNameList_?ListQ]:=Join[{" Eqs."},{" (",CounterBox["DisplayFormulaNumbered",#],"),"}&/@Drop[CellTagNameList,-1],{" and (",CounterBox["DisplayFormulaNumbered",CellTagNameList[[-1]]],")"}];
 
@@ -84,7 +103,6 @@ Inline[Expr_]:=Module[{CellToDisplay},
 	(*CellToDisplay=ExpressionCell[Expr,CellContext->"Global`"];*)
 	CellToDisplay=Cell[BoxData@MakeBoxes@Expr,CellContext->"Global`"];
 {" ",CellToDisplay}];
-
 
 Comment[Expr_?ListQ]:=CellPrint@Cell[TextData@Flatten@Expr,Darker@Green,"Text",CellContext->"Global`"];
 Comment[Expr_?StringQ]:=Module[{},
@@ -104,6 +122,18 @@ DisplayEquation[Expr_,OptionsPattern[]]:=CellPrint@ExpressionCell[Expr==0,Backgr
 
 Options@DisplayExpression={EqnLabel->"NoEquationLabel"};
 DisplayExpression[Expr_,OptionsPattern[]]:=CellPrint@ExpressionCell[Expr,Background->LightGreen,"DisplayFormulaNumbered",CellTags->OptionValue@EqnLabel];
+
+
+
+BuildPackage[FileName_String]:=Get[FileNameJoin@{$xPlainInstallDirectory,"Sources",FileName}];
+
+(*-------------------------*)
+(*  Registry of functions  *)
+(*-------------------------*)
+
+BuildPackage/@{
+	"LstListing.m"
+};
 
 End[];
 EndPackage[];
