@@ -7,9 +7,9 @@
 (*------------------------------*)
 
 (*
-xAct`xPlain`$Version={"1.0.0",{2023,11,4}};
+xAct`xPlain`$Version={"0.0.0",{2023,11,4}};
 *)
-xAct`xPlain`$Version={"1.0.0-developer",DateList@FileDate@$InputFileName~Drop~(-3)};
+xAct`xPlain`$Version={"0.0.0-developer",DateList@FileDate@$InputFileName~Drop~(-3)};
 
 If[Unevaluated[xAct`xCore`Private`$LastPackage]===xAct`xCore`Private`$LastPackage,xAct`xCore`Private`$LastPackage="xAct`xPlain`"];
 
