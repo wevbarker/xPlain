@@ -111,6 +111,7 @@ Comment[Expr_?StringQ]:=Module[{},
 Title[Expr_?StringQ]:=Module[{},
 	CellPrint@TextCell[Expr,40,Darker@Green,Underlined,Bold,"Text"]];
 
+Section[Expr_?ListQ]:=CellPrint@Cell[TextData@Flatten@Expr,30,Darker@Green,Underlined,Bold,"Text",CellContext->"Global`"];
 Section[Expr_?StringQ]:=Module[{},
 	CellPrint@TextCell[Expr,30,Darker@Green,Underlined,Bold,"Text"]];
 
