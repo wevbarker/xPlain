@@ -56,6 +56,7 @@ Subsection::usage="Subsection";
 Comment::usage="Comment";
 Supercomment::usage="Manuscript";
 
+Kind::usage="Kind";
 Cref::usage="Cref";
 Mref::usage="Mref";
 Inline::usage="Inline";
@@ -83,6 +84,13 @@ NovelPrint::usage="Manuscript";
 
 Begin["xAct`xPlain`Private`"];
 
+KindAbbr["Equation"]:="Eq.";
+KindAbbrs["Equation"]:="Eqs.";
+KindAbbr["Table"]:="Table";
+KindAbbrs["Table"]:="Tables";
+KindAbbr["Figure"]:="Fig.";
+KindAbbrs["Figure"]:="Figs.";
+
 Manuscript[Expr_?StringQ]:=Manuscript[{Expr}];
 Manuscript[Expr_?ListQ]:=Module[{},
 	CellPrint@Cell[TextData@({StyleBox["Concrete relation to manuscript: ",Large,FontWeight->Bold]}~Join~Flatten@Expr),Darker@Green,"Text",Background->Yellow]];
@@ -95,10 +103,22 @@ PartIIIProject[Expr_?StringQ]:=PartIIIProject[{Expr}];
 PartIIIProject[Expr_?ListQ]:=Module[{},
 	CellPrint@Cell[TextData@({StyleBox["Connection to Part III Project: ",Large,FontWeight->Bold]}~Join~Flatten@Expr),Darker@Green,"Text",Background->Yellow]];
 
-Cref[CellTagNameList_?ListQ]:=Join[{" Eqs."},{" (",CounterBox["DisplayFormulaNumbered",#],"),"}&/@Drop[CellTagNameList,-1],{" and (",CounterBox["DisplayFormulaNumbered",CellTagNameList[[-1]]],")"}];
 
-Cref[CellTagName_?StringQ]:={" Eq. (",CounterBox["DisplayFormulaNumbered",CellTagName],")"};
-Mref[ManuscriptEquationLabel_?StringQ]:={" Eq. (",ToString@(Mlabel@ManuscriptEquationLabel),")"};
+
+
+
+
+Options@Cref={
+	Kind->"Equation"
+};
+Cref[CellTagNameList_?ListQ,OptionsPattern[]]:=Join[{" ",KindAbbrs@OptionValue@Kind},{" (",CounterBox["DisplayFormulaNumbered",#],"),"}&/@Drop[CellTagNameList,-1],{" and (",CounterBox["DisplayFormulaNumbered",CellTagNameList[[-1]]],")"}];
+Cref[CellTagName_?StringQ,OptionsPattern[]]:={" ",KindAbbr@OptionValue@Kind," (",CounterBox["DisplayFormulaNumbered",CellTagName],")"};
+
+Options@Mref={
+	Kind->"Equation"
+};
+Mref[ManuscriptEquationLabel_?StringQ,OptionsPattern[]]:=Module[{},{" ",KindAbbr@OptionValue@Kind," (",ToString@(Mlabel@ManuscriptEquationLabel),")"}];
+
 Inline[Expr_]:=Module[{CellToDisplay},	
 	(*CellToDisplay=ExpressionCell[Expr,CellContext->"Global`"];*)
 	CellToDisplay=Cell[BoxData@MakeBoxes@Expr,CellContext->"Global`"];
