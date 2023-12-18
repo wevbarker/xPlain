@@ -36,6 +36,15 @@ Print["CopyRight \[Copyright] 2023, Will E. V. Barker and Sebastian Zell, under 
 (*  Modify the path to accommodate notebook and install directories  *)
 (*-------------------------------------------------------------------*)
 
+Quiet@If[NotebookDirectory[]==$Failed,
+	$CLI=True,
+	$CLI=False,
+	$CLI=False];
+
+If[$CLI,
+	$WorkingDirectory=Directory[],
+	$WorkingDirectory=NotebookDirectory[]];
+
 $Path~AppendTo~NotebookDirectory[];
 $xPlainInstallDirectory=Select[FileNameJoin[{#,"xAct/xPlain"}]&/@$Path,DirectoryQ][[1]];
 
