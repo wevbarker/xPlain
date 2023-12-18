@@ -42,10 +42,10 @@ Quiet@If[NotebookDirectory[]==$Failed,
 	$xPlainCLI=False];
 
 If[$xPlainCLI,
-	$WorkingDirectory=Directory[],
-	$WorkingDirectory=NotebookDirectory[]];
+	$xPlainWorkingDirectory=Directory[],
+	$xPlainWorkingDirectory=NotebookDirectory[]];
 
-$Path~AppendTo~$WorkingDirectory;
+$Path~AppendTo~$xPlainWorkingDirectory;
 $xPlainInstallDirectory=Select[FileNameJoin[{#,"xAct/xPlain"}]&/@$Path,DirectoryQ][[1]];
 
 (*--------------*)
