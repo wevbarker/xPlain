@@ -37,11 +37,11 @@ Print["CopyRight \[Copyright] 2023, Will E. V. Barker and Sebastian Zell, under 
 (*-------------------------------------------------------------------*)
 
 Quiet@If[NotebookDirectory[]==$Failed,
-	$CLI=True,
-	$CLI=False,
-	$CLI=False];
+	$xPlainCLI=True,
+	$xPlainCLI=False,
+	$xPlainCLI=False];
 
-If[$CLI,
+If[$xPlainCLI,
 	$WorkingDirectory=Directory[],
 	$WorkingDirectory=NotebookDirectory[]];
 
