@@ -45,7 +45,7 @@ If[$CLI,
 	$WorkingDirectory=Directory[],
 	$WorkingDirectory=NotebookDirectory[]];
 
-$Path~AppendTo~NotebookDirectory[];
+$Path~AppendTo~$WorkingDirectory;
 $xPlainInstallDirectory=Select[FileNameJoin[{#,"xAct/xPlain"}]&/@$Path,DirectoryQ][[1]];
 
 (*--------------*)
