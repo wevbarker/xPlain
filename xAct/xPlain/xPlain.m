@@ -15,6 +15,8 @@ If[Unevaluated[xAct`xCore`Private`$LastPackage]===xAct`xCore`Private`$LastPackag
 
 (* here is an error-killing line, I can't quite remember why we needed it! *)
 Off@(Solve::fulldim);
+Off@(Syntax::stresc);
+Off@(FrontEndObject::notavail);
 
 (*=================*)
 (*  xAct`xPlain`  *)
@@ -59,6 +61,7 @@ Print["These packages come with ABSOLUTELY NO WARRANTY; for details type Disclai
 Print[xAct`xCore`Private`bars]];
 
 Title::usage="Title";
+Chapter::usage="Chapter";
 Section::usage="Section";
 Subsection::usage="Subsection";
 
@@ -93,68 +96,6 @@ NovelPrint::usage="Manuscript";
 
 Begin["xAct`xPlain`Private`"];
 
-KindAbbr["Equation"]:="Eq.";
-KindAbbrs["Equation"]:="Eqs.";
-KindAbbr["Table"]:="Table";
-KindAbbrs["Table"]:="Tables";
-KindAbbr["Figure"]:="Fig.";
-KindAbbrs["Figure"]:="Figs.";
-
-Manuscript[Expr_?StringQ]:=Manuscript[{Expr}];
-Manuscript[Expr_?ListQ]:=Module[{},
-	CellPrint@Cell[TextData@({StyleBox["Concrete relation to manuscript: ",Large,FontWeight->Bold]}~Join~Flatten@Expr),Darker@Green,"Text",Background->Yellow]];
-
-Supercomment[Expr_?StringQ]:=Supercomment[{Expr}];
-Supercomment[Expr_?ListQ]:=Module[{},
-	CellPrint@Cell[TextData@({StyleBox["Key observation: ",Large,FontWeight->Bold]}~Join~Flatten@Expr),Darker@Green,"Text",Background->Yellow]];
-
-PartIIIProject[Expr_?StringQ]:=PartIIIProject[{Expr}];
-PartIIIProject[Expr_?ListQ]:=Module[{},
-	CellPrint@Cell[TextData@({StyleBox["Connection to Part III Project: ",Large,FontWeight->Bold]}~Join~Flatten@Expr),Darker@Green,"Text",Background->Yellow]];
-
-
-
-
-
-
-Options@Cref={
-	Kind->"Equation"
-};
-Cref[CellTagNameList_?ListQ,OptionsPattern[]]:=Join[{" ",KindAbbrs@OptionValue@Kind},{" (",CounterBox["DisplayFormulaNumbered",#],"),"}&/@Drop[CellTagNameList,-1],{" and (",CounterBox["DisplayFormulaNumbered",CellTagNameList[[-1]]],")"}];
-Cref[CellTagName_?StringQ,OptionsPattern[]]:={" ",KindAbbr@OptionValue@Kind," (",CounterBox["DisplayFormulaNumbered",CellTagName],")"};
-
-Options@Mref={
-	Kind->"Equation"
-};
-Mref[ManuscriptEquationLabel_?StringQ,OptionsPattern[]]:=Module[{},{" ",KindAbbr@OptionValue@Kind," (",ToString@(Mlabel@ManuscriptEquationLabel),")"}];
-
-Inline[Expr_]:=Module[{CellToDisplay},	
-	(*CellToDisplay=ExpressionCell[Expr,CellContext->"Global`"];*)
-	CellToDisplay=Cell[BoxData@MakeBoxes@Expr,CellContext->"Global`"];
-{" ",CellToDisplay}];
-
-Comment[Expr_?ListQ]:=CellPrint@Cell[TextData@Flatten@Expr,Darker@Green,"Text",CellContext->"Global`"];
-Comment[Expr_?StringQ]:=Module[{},
-	CellPrint@TextCell[Expr,Darker@Green,"Text",CellContext->"Global`"]];
-
-Title[Expr_?StringQ]:=Module[{},
-	CellPrint@TextCell[Expr,40,Darker@Green,Underlined,Bold,"Text"]];
-
-Section[Expr_?ListQ]:=CellPrint@Cell[TextData@Flatten@Expr,30,Darker@Green,Underlined,Bold,"Text",CellContext->"Global`"];
-Section[Expr_?StringQ]:=Module[{},
-	CellPrint@TextCell[Expr,30,Darker@Green,Underlined,Bold,"Text"]];
-
-Subsection[Expr_?StringQ]:=Module[{},
-	CellPrint@TextCell[Expr,20,Darker@Green,Underlined,"Text"]];
-
-Options@DisplayEquation={EqnLabel->"NoEquationLabel"};
-DisplayEquation[Expr_,OptionsPattern[]]:=CellPrint@ExpressionCell[Expr==0,Background->LightGreen,"DisplayFormulaNumbered",CellTags->OptionValue@EqnLabel];
-
-Options@DisplayExpression={EqnLabel->"NoEquationLabel"};
-DisplayExpression[Expr_,OptionsPattern[]]:=CellPrint@ExpressionCell[Expr,Background->LightGreen,"DisplayFormulaNumbered",CellTags->OptionValue@EqnLabel];
-
-
-
 BuildPackage[FileName_String]:=Get[FileNameJoin@{$xPlainInstallDirectory,"Sources",FileName}];
 
 (*-------------------------*)
@@ -162,6 +103,21 @@ BuildPackage[FileName_String]:=Get[FileNameJoin@{$xPlainInstallDirectory,"Source
 (*-------------------------*)
 
 BuildPackage/@{
+	"DisplayCLI.m",
+	"Title.m",
+	"Chapter.m",
+	"Section.m",
+	"Subsection.m",
+	"Comment.m",
+	"Supercomment.m",
+	"Manuscript.m",
+	"PartIIIProject.m",
+	"Kind.m",
+	"Cref.m",
+	"Mref.m",
+	"Inline.m",
+	"DisplayExpression.m",
+	"DisplayEquation.m",
 	"LstListing.m"
 };
 

@@ -3,11 +3,11 @@
 (*==============*)
 
 If[$PaperPrint,
-	Quiet@CreateDirectory[FileNameJoin@{NotebookDirectory[],"LstListing"}];
+	Quiet@CreateDirectory[FileNameJoin@{$xPlainWorkingDirectory,"LstListing"}];
 	If[NotebookDirectory[]==$Failed,
-		Print[" ** BuildNovel: Purging LstListing directory at "<>FileNameJoin@{NotebookDirectory[],"LstListing/*"}<>"..."];,
-		Run@("rm -rf "<>FileNameJoin@{NotebookDirectory[],"LstListing/*"});,
-		Run@("rm -rf "<>FileNameJoin@{NotebookDirectory[],"LstListing/*"});
+	DontPrint[" ** BuildNovel: Purging LstListing directory at "<>FileNameJoin@{$xPlainWorkingDirectory,"LstListing/*"}<>"..."];,
+		Run@("rm -rf "<>FileNameJoin@{$xPlainWorkingDirectory,"LstListing/*"});,
+		Run@("rm -rf "<>FileNameJoin@{$xPlainWorkingDirectory,"LstListing/*"});
 	];
 ];
 
@@ -16,7 +16,7 @@ $SubLine=1;
 
 NovelOutput[x_String]:=Module[{},
 	$ListingsOutput=x;
-	Run@("rm "<>FileNameJoin@{NotebookDirectory[],"LstListing",$ListingsOutput});
+	Run@("rm "<>FileNameJoin@{$xPlainWorkingDirectory,"LstListing",$ListingsOutput});
 ];
 
 SetAttributes[LstListingIn,HoldAll];
@@ -25,12 +25,12 @@ LstListingIn[InputExpr__]:=Block[{
 	ListingsFile,
 	Expr},
 
-	Quiet@CreateDirectory[FileNameJoin@{NotebookDirectory[],"LstListing"}];
+	Quiet@CreateDirectory[FileNameJoin@{$xPlainWorkingDirectory,"LstListing"}];
 	FormattedInput=ToString[Unevaluated[InputExpr]~ToString~InputForm];
 	Print@FormattedInput;
 
 	ListingsFile=OpenAppend[
-			FileNameJoin@{NotebookDirectory[],"LstListing",$ListingsOutput<>".tex"},
+			FileNameJoin@{$xPlainWorkingDirectory,"LstListing",$ListingsOutput<>".tex"},
 			PageWidth->Infinity];
 
 	WriteString[ListingsFile,"In[]:= "<>FormattedInput<>"\nOut[]= "];
@@ -43,7 +43,7 @@ LstListingOut[InputExpr__]:=Block[{
 	ListingsFile,
 	ChosenImageSize},
 
-	Quiet@CreateDirectory[FileNameJoin@{NotebookDirectory[],"LstListing"}];
+	Quiet@CreateDirectory[FileNameJoin@{$xPlainWorkingDirectory,"LstListing"}];
 	If[$Widetext,ChosenImageSize=(510/246)*350,ChosenImageSize=350];
 	FormattedOutput=InputExpr;
 
@@ -55,7 +55,7 @@ LstListingOut[InputExpr__]:=Block[{
 		];
 
 		ListingsFile=OpenAppend[
-				FileNameJoin@{NotebookDirectory[],"LstListing",$ListingsOutput<>".tex"},
+				FileNameJoin@{$xPlainWorkingDirectory,"LstListing",$ListingsOutput<>".tex"},
 				PageWidth->Infinity];
 
 		If[{FormattedOutput}~AllTrue~StringQ,
@@ -74,7 +74,7 @@ LstListingOut[InputExpr__]:=Block[{
 			Print@FormattedOutput;
 
 			FormattedOutputFileName=$ListingsOutput<>ToString@$OldLine<>"-"<>ToString@$SubLine<>"LstListing.pdf";
-			FileNameJoin@{NotebookDirectory[],"LstListing",FormattedOutputFileName}~Export~FormattedOutput;
+			FileNameJoin@{$xPlainWorkingDirectory,"LstListing",FormattedOutputFileName}~Export~FormattedOutput;
 
 			WriteString[
 				ListingsFile,
