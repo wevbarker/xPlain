@@ -11,7 +11,7 @@ xPlain is provided without warranty, or the implied warranty of merchantibility 
 
 ## About
 
-xPlain is an (unofficial) part of the [xAct bundle](http://www.xact.es/). It is designed for the formatting of unambiguous, lasting derivations in the Wolfram language. It is suitable only for those who use the Wolfram language programatically (i.e. running notebooks how they should be run, purely via plaintext input).
+xPlain is an (unofficial) part of the [xAct bundle](http://www.xact.es/). It is designed for the formatting of unambiguous, lasting derivations in the Wolfram language. It is suitable only for those who use the Wolfram language programatically (i.e. running notebooks how they should be run, purely via plaintext input).fasd 
 
 ```
 <<xAct`xPlain`;
