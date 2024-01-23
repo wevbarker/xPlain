@@ -14,10 +14,13 @@ xPlain is provided without warranty, or the implied warranty of merchantibility 
 The xPlain project is motivated by a desire to incorporate the [FAIR guiding principles for scientific data management and stewardship](https://www.go-fair.org/fair-principles/): Findability, Accessibility, Interoperability and Reuse. Whilst these guidelines have typically been applied to numerical data, the physical sciences (and theoretical physics in particular) can rely heavily on symbolic data. There is a trend in theoretical physics to provide *supplemental materials* alongside analytic publications, often comprising one or more Mathematica notebooks which are supposed to corroborate the claims of the author(s). For a variety of reasons, *Mathematica* has a near-monopoly on computer algebra in the theoretical physics community. The popular *notebook* front-end is intended to combine programmatic input of the Wolfram Language with interactive execution and visual output. As with most IDEs, the *notebook* performs none of its duties well: 
 - Programmatically, it will always be outperformed by superior tools such as *vim* or *vi*
 - Visually, it offers very limited options for paper-style derivations
+
 Computer algebra is one of the very few applications where we really do need a GUI as well as a CLI. The classic case for this is made by tensor calculus, where the proliferation of indices exceeds the capabilities of monospace layouts: the *notebook* is actually quite good at formatting. The question then comes as how to simultaneously do the following: 
 - Use the *notebook* purely for its mathematical formatting abilities
 - Present your calculations coherently, like a professional physicist
 - Work entirely in plaintext, like a professional developer
+
+These are the objectives of the xPlain project.
 
 ## About
 
