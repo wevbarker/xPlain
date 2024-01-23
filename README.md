@@ -20,11 +20,9 @@ Computer algebra is one of the very few applications where we really do need a G
 - Present your calculations coherently, like a professional physicist
 - Work entirely in plaintext, like a professional developer
 
-These are the objectives of the xPlain project.
+These are the objectives of the xPlain project. xPlain is an (unofficial) part of the [xAct bundle](http://www.xact.es/). It is designed for the formatting of unambiguous, lasting derivations in the Wolfram language. It is suitable only for those who use the Wolfram Language programmatically. xPlain is a work in progress. The current version was [trialled in some supplemental materials](https://github.com/wevbarker/SupplementalMaterials-2306) and attracted positive comments from the anonymous referee: "*It is remarkable the effort made by the authors with the Supplemental Material to show the connection between the Mathematica code employed for the computations and the statements in the paper. I congratulate the authors for the thorough explanations.*"
 
-## About
-
-xPlain is an (unofficial) part of the [xAct bundle](http://www.xact.es/). It is designed for the formatting of unambiguous, lasting derivations in the Wolfram language. It is suitable only for those who use the Wolfram Language programmatically (i.e. running notebooks how they should be run, purely via plaintext input).
+## Usage 
 
 Load the package near the top of your Wolfram Language script file:
 ```
