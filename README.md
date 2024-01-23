@@ -11,27 +11,45 @@ xPlain is provided without warranty, or the implied warranty of merchantibility 
 
 ## About
 
-xPlain is an (unofficial) part of the [xAct bundle](http://www.xact.es/). It is designed for the formatting of unambiguous, lasting derivations in the Wolfram language. It is suitable only for those who use the Wolfram language programatically (i.e. running notebooks how they should be run, purely via plaintext input).
+xPlain is an (unofficial) part of the [xAct bundle](http://www.xact.es/). It is designed for the formatting of unambiguous, lasting derivations in the Wolfram language. It is suitable only for those who use the Wolfram Language programatically (i.e. running notebooks how they should be run, purely via plaintext input).
+
+Load the package near the top of your Wolfram Language script file:
 ```
 <<xAct`xPlain`;
 ```
-and plug the quadratic expansion directly into PSALTer:
+Having done this, you now have access to some new sectioning commands which acept strings as input: 
 ```mathematica
 Title@"Welcome to the xPlain package, here is a title";
 Chapter@"And here is a chapter";
 Section@"And here is a section";
 Subsection@"And here is a subsection";
+```
+A particularly useful command provides all your commentary:
+```mathematica
 Comment@"This is a comment. We will next type a numbered expression.";
+```
+Variables should never be defined as formatted objects. You wouldn't do it in any other language, and you shouldn't do it in the Wolfram Language. Pick a sensible, plaintext name, such as `xx` for your symbol, and if you want it to display nicely, you can do as follows:
+```mathematica
 Format@xx^=ToExpression@"\[ScriptX]";
+```
+Now math can be displayed in xPlain as follows (note we can add a string-valued label to be associated with the counter for the equation number):
+```mathematica
 DisplayExpression[xx,EqnLabel->"Eq1"];
+```
+If you have an expression and you want it to be understood to vanish, you can use a slight variant of the above environment: 
+```mathematica
 Comment@"And next we will type a numbered equation.";
 DisplayEquation[xx,EqnLabel->"Eq2"];
-Comment@{"Here is a comment referring to",Cref@"Eq1",". We can also refer to multiple equations as",Cref@{"Eq1","Eq2"},". You can see that this is a pretty long comment so it will be interesting to see how the line break works in the terminal."};
-Supercomment@{"Here is a comment referring to",Cref@"Eq1"," and multiple equations as",Cref@{"Eq1","Eq2"},"."};
-
-Quit[];
 ```
-
+Now we can start to use those equation numbers in the commentary. This time, you need to pass the argument as a list of strings and referenced labels:
+```mathematica
+Comment@{"Here is a comment referring to",Cref@"Eq1",". We can also refer to multiple equations as",Cref@{"Eq1","Eq2"},". You can see that this is a pretty long comment so it will be interesting to see how the line break works in the terminal."};
+```
+You can also add more vibrant commentary:
+```mathematica
+Supercomment@{"Here is a comment referring to",Cref@"Eq1"," and multiple equations as",Cref@{"Eq1","Eq2"},"."};
+```
+You may be running your Wolfram Language file from the command line, or from a notebook. If you're using a notebook at all, the only thing it should contain is a one-line statement at the top which calls your Wolfram Language script. The output of the above xPlain commands for both the command line interface and the notebook interface is shown in a print-screen below:
 <img src="xAct/xPlain/Documentation/English/Examples.png" width="1000">
 
 ## Installation
