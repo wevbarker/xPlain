@@ -9,9 +9,15 @@ xPlain is distributed as free software under the [GNU General Public License (GP
 
 xPlain is provided without warranty, or the implied warranty of merchantibility or fitness for a particular purpose.
 
+## Motivations 
+
+The xPlain project is motivated by a desire to incorporate the [FAIR guiding principles for scientific data management and stewardship](https://www.go-fair.org/fair-principles/): Findability, Accessibility, Interoperability and Reuse. Whilst these guidelines have typically been applied to numerical data, the physical sciences (and theoretical physics in particular) can rely heavily on symbolic data. There is a trend in theoretical physics to provide *supplemental materials* alongside analytic publications, often comprising one or more Mathematica notebooks which are supposed to corroborate the claims of the author(s). For a variety of reasons, Mathematica has a near-monopoly on computer algebra in the theoretical physics community. The popular *notebook* front-end is intended to combine programmatic use of the Wolfram Language with interactive execution. As with most IDEs, the *notebook* performs none of its duties well: 
+- Programmatically, it will always be outperformed by superior tools such as *vim* or *vi*
+- Visually, it offers a very limited range of options for presenting derivations as you would in a paper
+
 ## About
 
-xPlain is an (unofficial) part of the [xAct bundle](http://www.xact.es/). It is designed for the formatting of unambiguous, lasting derivations in the Wolfram language. It is suitable only for those who use the Wolfram Language programatically (i.e. running notebooks how they should be run, purely via plaintext input).
+xPlain is an (unofficial) part of the [xAct bundle](http://www.xact.es/). It is designed for the formatting of unambiguous, lasting derivations in the Wolfram language. It is suitable only for those who use the Wolfram Language programmatically (i.e. running notebooks how they should be run, purely via plaintext input).
 
 Load the package near the top of your Wolfram Language script file:
 ```
