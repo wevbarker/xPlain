@@ -16,4 +16,11 @@ DisplayEquation[xx,EqnLabel->"Eq2"];
 Comment@{"Here is a comment referring to",Cref@"Eq1",". We can also refer to multiple equations as",Cref@{"Eq1","Eq2"},". You can see that this is a pretty long comment so it will be interesting to see how the line break works in the terminal."};
 Supercomment@{"Here is a comment referring to",Cref@"Eq1"," and multiple equations as",Cref@{"Eq1","Eq2"},"."};
 
+Comment@"Einstein proposed a very nice equation";
+Format@Ee^=ToExpression@"\[ScriptCapitalE]";
+Format@m^=ToExpression@"\[ScriptM]";
+Format@c^=ToExpression@"\[ScriptC]";
+DisplayExpression[Ee==mc^2,EqnLabel->"Emc2"];
+Comment@{"But actually",Cref@"Emc2"," only holds in the rest frame."};
+
 Quit[];
