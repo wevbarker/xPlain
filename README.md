@@ -50,6 +50,7 @@ You can also add more vibrant commentary:
 Supercomment@{"Here is a comment referring to",Cref@"Eq1"," and multiple equations as",Cref@{"Eq1","Eq2"},"."};
 ```
 You may be running your Wolfram Language file from the command line, or from a notebook. If you're using a notebook at all, the only thing it should contain is a one-line statement at the top which calls your Wolfram Language script. The output of the above xPlain commands for both the command line interface and the notebook interface is shown in a print-screen below:
+
 <img src="xAct/xPlain/Documentation/English/Examples.png" width="1000">
 
 ## Installation
