@@ -5,7 +5,7 @@
 Subsection[Expr_?ListQ]:=If[$xPlainCLI,
 		DisplayCLI@("   #### "<>StringJoin@Expr);,
 		CellPrint@Cell[TextData@Flatten@Expr,
-				30,
+				20,
 				Darker@Green,
 				Underlined,Bold,
 				"Text",
@@ -16,6 +16,6 @@ Subsection[Expr_?StringQ]:=Module[{},
 	If[$xPlainCLI,
 		DisplayCLI@("  #### "<>Expr);
 	,
-		CellPrint@TextCell[Expr,30,Darker@Green,Underlined,Bold,"Text"];
+		CellPrint@TextCell[Expr,20,Darker@Green,Underlined,Bold,"Text"];
 	];
 ];

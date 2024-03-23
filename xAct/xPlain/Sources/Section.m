@@ -5,7 +5,7 @@
 Section[Expr_?ListQ]:=If[$xPlainCLI,
 		DisplayCLI@("   ### "<>StringJoin@Expr);,
 		CellPrint@Cell[TextData@Flatten@Expr,
-				30,
+				25,
 				Darker@Green,
 				Underlined,Bold,
 				"Text",
