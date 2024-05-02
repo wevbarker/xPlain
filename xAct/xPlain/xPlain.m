@@ -32,7 +32,7 @@ SetOptions[$FrontEndSession,EvaluationCompletionAction->"ScrollToOutput"];
 
 Print[xAct`xCore`Private`bars];
 Print["Package xAct`xPlain` version ",$Version[[1]],", ",$Version[[2]]];
-Print["CopyRight \[Copyright] 2023, Will E. V. Barker and Sebastian Zell, under the General Public License."];
+Print["CopyRight \[Copyright] 2023, Will Barker and Sebastian Zell, under the General Public License."];
 
 (*-------------------------------------------------------------------*)
 (*  Modify the path to accommodate notebook and install directories  *)
@@ -78,6 +78,8 @@ DisplayEquation::usage="DisplayEquation";
 DisplayExpression::usage="DisplayExpression";
 EqnLabel::usage="EqnLabel";
 
+Code::usage="Code";
+
 $PaperPrint::usage="$PaperPrint is a global bool.";
 $PaperPrint=True;
 $Widetext::usage="$Widetext is a global bool.";
@@ -118,6 +120,7 @@ BuildPackage/@{
 	"Inline.m",
 	"DisplayExpression.m",
 	"DisplayEquation.m",
+	"Code.m",
 	"LstListing.m"
 };
 
