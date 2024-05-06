@@ -5,6 +5,7 @@
 StyleString@"Comment":="\e[1;33;40m";
 StyleString@"Supercomment":="\e[1;30;43m";
 StyleString@"Expression":="\e[3;30;46m";
+StyleString@"Code":="\e[3;30;44m";
 
 Options@DisplayCLI={
 	StyleCLI->"Comment"
