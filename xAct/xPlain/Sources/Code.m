@@ -13,6 +13,7 @@ Code[SomeVar_,InputCode_,opts:OptionsPattern[Cell]]:=Module[{
 	ContentWidth},
 
 	If[$xPlainCLI,
+		Off@Attributes::ssle;
 		Content="[displayed code with "<>ToString@LeafCount@(Defer@InputForm@InputCode/.OwnValues@SomeVar)<>" leaves]";
 		ContentWidth=StringLength@Content;
 		Content//=StringPadLeft[#,Floor@(ContentWidth+(LineWidth-ContentWidth)/2)]&;
@@ -21,6 +22,9 @@ Code[SomeVar_,InputCode_,opts:OptionsPattern[Cell]]:=Module[{
 		Content//=StringPadRight[#,LineWidth]&;
 		Content=Content<>"(##)";
 		DisplayCLI[Content,StyleCLI->"Code"];
+		Expr=InputCode;
+		Expr//=Evaluate;
+		On@Attributes::ssle;
 		,
 		Off@Attributes::ssle;
 		CellPrint@ExpressionCell[Defer@InputForm@InputCode/.OwnValues@SomeVar,"Input",InitializationCell->True];	
