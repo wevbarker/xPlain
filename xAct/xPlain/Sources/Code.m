@@ -7,7 +7,7 @@ SetAttributes[Code,HoldAll];
 Code[InputCode_,opts:OptionsPattern[Cell]]:=Code[DummyVar,InputCode,opts];
 
 Code[SomeVar_,InputCode_,opts:OptionsPattern[Cell]]:=Module[{
-	Expr
+	Expr,
 	LineWidth=60,
 	Content,
 	ContentWidth},
