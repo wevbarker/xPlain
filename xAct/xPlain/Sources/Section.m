@@ -7,7 +7,7 @@ Section[Expr_?ListQ]:=If[$xPlainCLI,
 		CellPrint@Cell[TextData@Flatten@Expr,
 				25,
 				Darker@Green,
-				Underlined,Bold,
+				Underlined,
 				"Text",
 				CellContext->"Global`"];
 ];
@@ -16,6 +16,6 @@ Section[Expr_?StringQ]:=Module[{},
 	If[$xPlainCLI,
 		DisplayCLI@("   ### "<>Expr);
 	,
-		CellPrint@TextCell[Expr,30,Darker@Green,Underlined,Bold,"Text"];
+		CellPrint@TextCell[Expr,50,Darker@Green,Underlined,"Text"];
 	];
 ];
