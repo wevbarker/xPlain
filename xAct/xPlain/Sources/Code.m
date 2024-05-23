@@ -4,6 +4,28 @@
 
 SetAttributes[Code,HoldAll];
 
+$LstListingsLine=1;
+
+(*SetAttributes[LstListingCode,HoldAll];*)
+LstListingCode[InputExpr__]:=Block[{
+	FormattedInput,
+	ListingsFile,
+	Expr},
+
+	Quiet@CreateDirectory[FileNameJoin@{$xPlainWorkingDirectory,"LstListing"}];
+	FormattedInput=InputExpr;
+	(*FormattedInput=ToString[Unevaluated[InputExpr]~ToString~InputForm];*)
+	Print@FormattedInput;
+	Run@("rm -rf "<>FileNameJoin@{$xPlainWorkingDirectory,
+			"LstListing",$ListingsOutput<>".tex"});
+	ListingsFile=OpenAppend[
+			FileNameJoin@{$xPlainWorkingDirectory,"LstListing",$ListingsOutput<>".tex"},
+			PageWidth->Infinity];
+
+	WriteString[ListingsFile,"In["<>ToString@$LstListingsLine<>"]:= "<>FormattedInput<>""];
+	Close@ListingsFile;
+];
+
 Code[InputCode_,opts:OptionsPattern[Cell]]:=Code[DummyVar,InputCode,opts];
 
 Code[SomeVar_,InputCode_,opts:OptionsPattern[Cell]]:=Module[{
@@ -11,6 +33,8 @@ Code[SomeVar_,InputCode_,opts:OptionsPattern[Cell]]:=Module[{
 	LineWidth=60,
 	Content,
 	ContentWidth},
+
+	$ListingsOutput="Line"<>ToString@$LstListingsLine;
 
 	If[$xPlainCLI,
 		Off@Attributes::ssle;
@@ -28,6 +52,11 @@ Code[SomeVar_,InputCode_,opts:OptionsPattern[Cell]]:=Module[{
 		,
 		Off@Attributes::ssle;
 		CellPrint@ExpressionCell[Defer@InputForm@InputCode/.OwnValues@SomeVar,"Input",InitializationCell->True];	
+		Expr=ToString[Defer@InputForm@InputCode/.OwnValues@SomeVar];
+		Expr=StringReplace[Expr,{"Defer["->""}];
+		Expr=StringDrop[Expr,-1];
+		LstListingCode[Expr];
+		$LstListingsLine+=1;
 		Expr=InputCode;
 		Expr//=Evaluate;
 		On@Attributes::ssle;
