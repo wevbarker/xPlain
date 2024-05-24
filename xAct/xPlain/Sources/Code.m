@@ -15,7 +15,6 @@ LstListingCode[InputExpr__]:=Block[{
 	Quiet@CreateDirectory[FileNameJoin@{$xPlainWorkingDirectory,"LstListing"}];
 	FormattedInput=InputExpr;
 	(*FormattedInput=ToString[Unevaluated[InputExpr]~ToString~InputForm];*)
-	Print@FormattedInput;
 	Run@("rm -rf "<>FileNameJoin@{$xPlainWorkingDirectory,
 			"LstListing",$ListingsOutput<>".tex"});
 	ListingsFile=OpenAppend[
