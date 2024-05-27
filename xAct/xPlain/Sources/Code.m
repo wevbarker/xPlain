@@ -53,6 +53,7 @@ Code[SomeVar_,InputCode_,opts:OptionsPattern[Cell]]:=Module[{
 		CellPrint@ExpressionCell[Defer@InputForm@InputCode/.OwnValues@SomeVar,"Input",InitializationCell->True];	
 		Expr=ToString[Defer@InputForm@InputCode/.OwnValues@SomeVar];
 		Expr=StringReplace[Expr,{"Defer["->""}];
+		Expr=StringReplace[Expr,{"*"->" * "}];
 		Expr=StringDrop[Expr,-1];
 		LstListingCode[Expr];
 		$LstListingsLine+=1;
