@@ -4,7 +4,7 @@
 
 SetAttributes[Code,HoldAll];
 
-$PadLength=100;
+$PadLength=300;
 $BulkLength=1000;
 $LstListingsLine=1;
 
@@ -30,12 +30,12 @@ LstListingCode[InputExpr__]:=Block[{
 TakePadding[InputExpr_,PadLength_]:=Module[{StringList=StringTake[InputExpr,PadLength]},
 	If[PadLength>0,
 		StringList//=StringSplit;
-		StringList//=Drop[#,-1];
+		StringList//=Drop[#,-1]&;
 		StringList=(#<>" ")&/@StringList;
 		StringList=StringJoin@@StringList;
 	,
 		StringList//=StringSplit;
-		StringList//=Drop[#,1];
+		StringList//=Drop[#,1]&;
 		StringList=(" "<>#)&/@StringList;
 		StringList=StringJoin@@StringList;
 	];	
@@ -69,8 +69,8 @@ Code[SomeVar_,InputCode_,opts:OptionsPattern[Cell]]:=Module[{
 		CellPrint@ExpressionCell[Defer@InputForm@InputCode/.OwnValues@SomeVar,"Input",InitializationCell->True];	
 		Expr=ToString[Defer@InputForm@InputCode/.OwnValues@SomeVar];
 		Expr=StringReplace[Expr,{"Defer["->""}];
-		Expr=StringReplace[Expr,{"*"->" * "}];
 		Expr=StringDrop[Expr,-1];
+		Expr=StringReplace[Expr,{"*"->" * "}];
 		ExprLength=Expr//StringLength;
 		Print@ExprLength;
 		If[ExprLength>(2*$PadLength+$BulkLength),Expr=TakePadding[Expr,$PadLength]<>"(*omitted "<>ToString@(ExprLength-2*$PadLength)<>" characters for brevity*)"<>TakePadding[Expr,-$PadLength]];
