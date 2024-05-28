@@ -4,6 +4,8 @@
 
 SetAttributes[Code,HoldAll];
 
+$PadLength=100;
+$BulkLength=1000;
 $LstListingsLine=1;
 
 (*SetAttributes[LstListingCode,HoldAll];*)
@@ -55,6 +57,8 @@ Code[SomeVar_,InputCode_,opts:OptionsPattern[Cell]]:=Module[{
 		Expr=StringReplace[Expr,{"Defer["->""}];
 		Expr=StringReplace[Expr,{"*"->" * "}];
 		Expr=StringDrop[Expr,-1];
+		ExprLength=Expr//StringLength;
+		If[ExprLength>(2*$PadLength+$BulkLength),Expr=StringTake[Expr,$PadLength]<>"(*omitted "<>ToString@(ExprLength-2*$PadLength)<>" characters for brevity*)"<>StringTake[Expr,-$PadLength]];
 		LstListingCode[Expr];
 		$LstListingsLine+=1;
 		Expr=InputCode;
