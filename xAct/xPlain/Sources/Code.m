@@ -27,7 +27,7 @@ LstListingCode[InputExpr__]:=Block[{
 	Close@ListingsFile;
 ];
 
-TakePadding[InputExpr,PadLength]:=Module[{StringList=StringTake[InputExpr,PadLength]},
+TakePadding[InputExpr_,PadLength_]:=Module[{StringList=StringTake[InputExpr,PadLength]},
 	If[PadLength>0,
 		StringList//=StringSplit;
 		StringList//=Drop[#,-1];
