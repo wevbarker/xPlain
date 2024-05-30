@@ -72,7 +72,6 @@ Code[SomeVar_,InputCode_,opts:OptionsPattern[Cell]]:=Module[{
 		Expr=StringDrop[Expr,-1];
 		Expr=StringReplace[Expr,{"*"->" * "}];
 		ExprLength=Expr//StringLength;
-		Print@ExprLength;
 		If[ExprLength>(2*$PadLength+$BulkLength),Expr=TakePadding[Expr,$PadLength]<>"(*omitted "<>ToString@(ExprLength-2*$PadLength)<>" characters for brevity*)"<>TakePadding[Expr,-$PadLength]];
 		LstListingCode[Expr];
 		$LstListingsLine+=1;
