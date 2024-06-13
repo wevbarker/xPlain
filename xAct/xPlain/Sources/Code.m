@@ -23,7 +23,8 @@ LstListingCode[InputExpr__]:=Block[{
 			FileNameJoin@{$xPlainWorkingDirectory,"LstListing",$ListingsOutput<>".tex"},
 			PageWidth->Infinity];
 
-	WriteString[ListingsFile,"In["<>ToString@$LstListingsLine<>"]:= "<>FormattedInput<>""];
+	WriteString[ListingsFile,"In[\#]:= "<>FormattedInput<>""];
+	(*WriteString[ListingsFile,"In["<>ToString@$LstListingsLine<>"]:= "<>FormattedInput<>""];*)
 	Close@ListingsFile;
 ];
 
