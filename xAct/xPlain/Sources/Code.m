@@ -67,7 +67,7 @@ Code[SomeVar_,InputCode_,opts:OptionsPattern[Cell]]:=Module[{
 		On@Attributes::ssle;
 		,
 		Off@Attributes::ssle;
-		CellPrint@ExpressionCell[Defer@InputForm@InputCode/.OwnValues@SomeVar,"Input",InitializationCell->True];	
+		CellPrint@ExpressionCell[Defer@InputForm@InputCode/.OwnValues@SomeVar,"Input",InitializationCell->False];	
 		Expr=ToString[Defer@InputForm@InputCode/.OwnValues@SomeVar];
 		Expr=StringReplace[Expr,{"Defer["->""}];
 		Expr=StringDrop[Expr,-1];
