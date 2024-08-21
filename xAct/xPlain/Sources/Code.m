@@ -14,13 +14,13 @@ LstListingCode[InputExpr__]:=Block[{
 	ListingsFile,
 	Expr},
 
-	Quiet@CreateDirectory[FileNameJoin@{$xPlainWorkingDirectory,"LstListing"}];
+	Quiet@CreateDirectory[FileNameJoin@{$xPlainWorkingDirectory,".LstListing"}];
 	FormattedInput=InputExpr;
 	(*FormattedInput=ToString[Unevaluated[InputExpr]~ToString~InputForm];*)
 	Run@("rm -rf "<>FileNameJoin@{$xPlainWorkingDirectory,
-			"LstListing",$ListingsOutput<>".tex"});
+			".LstListing",$ListingsOutput<>".tex"});
 	ListingsFile=OpenAppend[
-			FileNameJoin@{$xPlainWorkingDirectory,"LstListing",$ListingsOutput<>".tex"},
+			FileNameJoin@{$xPlainWorkingDirectory,".LstListing",$ListingsOutput<>".tex"},
 			PageWidth->Infinity];
 
 	WriteString[ListingsFile,"In[#]:= "<>FormattedInput<>""];
@@ -70,6 +70,61 @@ GUICode[FullInputCode_]:=Module[{},
 	On@Attributes::ssle;
 ];
 
+$LagrangianCouplingCoefficients=<||>;
+$FieldKinematics=<||>;
+$ParticleSpectrographs={};
+
+SystemTest[InputExpr_]:=Module[{CommandFileName=InputExpr,CommandContent=InputExpr},
+	CommandFileName//=(#~StringDelete~" ")&;
+	If[(CommandFileName~StringContainsQ~"DefConstantSymbol["),
+		CommandFileName//=(#~StringReplace~{"DefConstantSymbol["->"DefConstantSymbol"})&;
+		CommandFileName//=(#~StringSplit~{"DefConstantSymbol","[",",","TheoryName->"})&;
+		CommandFileName//=First;
+		$LagrangianCouplingCoefficients@CommandFileName=CommandContent;
+		CommandFileName//=("LagrangianCouplingCoefficient"<>#<>".m")&;
+		CommandFileName//Print;
+		CommandContent//Print;
+	];
+	If[(CommandFileName~StringContainsQ~"DefField["),
+		CommandFileName//=(#~StringReplace~{"DefField["->"DefField"})&;
+		CommandFileName//=(#~StringSplit~{"DefField","[",",","TheoryName->"})&;
+		CommandFileName//=First;
+		$FieldKinematics@CommandFileName=CommandContent;
+		CommandFileName//=("FieldKinematics"<>#<>".m")&;
+		CommandFileName//Print;
+		CommandContent//Print;
+	];
+	If[(CommandFileName~StringContainsQ~"ParticleSpectrum["),
+		CommandFileName//=(#~StringReplace~{"\""->""})&;
+		CommandFileName//=(#~StringSplit~{"TheoryName->"})&;
+		CommandFileName//=#[[2]]&;
+		CommandFileName//=(#~StringSplit~{",","TheoryName->"})&;
+		CommandFileName//=First;
+		CommandFileName//=("ParticleSpectrograph"<>#<>".m")&;
+		CommandFileName//Print;
+		CommandContent//Print;
+		CommandContent~ExportCommand~CommandFileName;
+	];
+CommandFileName];
+
+Quiet@CreateDirectory[FileNameJoin@{$xPlainWorkingDirectory,".SystemTests"}];
+Quiet@Run@("rm -rf "<>FileNameJoin@{$xPlainWorkingDirectory,".SystemTests/*"});
+ExportCommand[CommandContent_,CommandFileName_]:=Block[{ListingsFile},
+	ListingsFile=OpenAppend[
+		FileNameJoin@{$xPlainWorkingDirectory,".SystemTests",CommandFileName},
+		PageWidth->Infinity];
+	WriteString[ListingsFile,"<<xAct`PSALTer`;"<>"\n"];
+	If[(CommandContent~StringContainsQ~#),
+		WriteString[ListingsFile,$LagrangianCouplingCoefficients[#]<>"\n"];
+	]&/@Keys@$LagrangianCouplingCoefficients;
+	If[(CommandContent~StringContainsQ~#),
+		WriteString[ListingsFile,$FieldKinematics[#]<>"\n"];
+	]&/@Keys@$FieldKinematics;
+	WriteString[ListingsFile,CommandContent<>"\n"];
+	WriteString[ListingsFile,"Quit[];"];
+	Close@ListingsFile;
+];
+
 LstCode[FullInputCode_]:=Module[{Expr,ExprLength},
 	$ListingsOutput="Line"<>ToString@$LstListingsLine;
 	Expr=ToString[FullInputCode];
@@ -80,21 +135,7 @@ LstCode[FullInputCode_]:=Module[{Expr,ExprLength},
 	If[ExprLength>(2*$PadLength+$BulkLength),Expr=TakePadding[Expr,$PadLength]<>"(*omitted "<>ToString@(ExprLength-2*$PadLength)<>" characters for brevity*)"<>TakePadding[Expr,-$PadLength]];
 	LstListingCode[Expr];
 	$LstListingsLine+=1;
-	Expr//=(#~StringDelete~" ")&;
-	If[(Expr~StringContainsQ~"DefField")||(Expr~StringContainsQ~"DefConstantSymbol"),
-		Expr//=(#~StringReplace~{"DefField["->"DefField"})&;
-		Expr//=(#~StringReplace~{"DefConstantSymbol["->"DefConstantSymbol"})&;
-		Expr//=(#~StringSplit~{"DefField","DefConstantSymbol","[",",","TheoryName->"})&;
-		Expr//=First;
-	];
-	If[(Expr~StringContainsQ~"ParticleSpectrum"),
-		Expr//=(#~StringReplace~{"\""->""})&;
-		Expr//=(#~StringSplit~{"TheoryName->"})&;
-		Expr//=#[[2]]&;
-		Expr//=(#~StringSplit~{",","TheoryName->"})&;
-		Expr//=First;
-	];
-	Expr//Print;
+	Expr//SystemTest;
 ];
 
 Code[InputCode_,opts:OptionsPattern[Cell]]:=Code[DummyVar,InputCode,opts];
