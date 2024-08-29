@@ -82,6 +82,8 @@ Code::usage="Code";
 
 $PaperPrint::usage="$PaperPrint is a global bool.";
 $PaperPrint=False;
+$Listings::usage="$Listings is a global bool.";
+$Listings=False;
 $Widetext::usage="$Widetext is a global bool.";
 $Widetext=True;
 $ListingsOutput::usage="$ListingsOutput is a globally-defined string which defines the name associated with the LstListing output.";

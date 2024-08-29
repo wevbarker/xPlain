@@ -11,12 +11,15 @@ $LstListingsLine=1;
 (*SetAttributes[LstListingCode,HoldAll];*)
 LstListingCode[InputExpr__]:=Block[{
 	FormattedInput,
+	ExprLength,
 	ListingsFile,
 	Expr},
 
 	Quiet@CreateDirectory[FileNameJoin@{$xPlainWorkingDirectory,".LstListing"}];
 	FormattedInput=InputExpr;
-	(*FormattedInput=ToString[Unevaluated[InputExpr]~ToString~InputForm];*)
+	ExprLength=FormattedInput//StringLength;
+	If[ExprLength>(2*$PadLength+$BulkLength),
+		FormattedInput=TakePadding[FormattedInput,$PadLength]<>"(*omitted "<>ToString@(ExprLength-2*$PadLength)<>" characters for brevity*)"<>TakePadding[FormattedInput,-$PadLength]];
 	Run@("rm -rf "<>FileNameJoin@{$xPlainWorkingDirectory,
 			".LstListing",$ListingsOutput<>".tex"});
 	ListingsFile=OpenAppend[
@@ -24,7 +27,6 @@ LstListingCode[InputExpr__]:=Block[{
 			PageWidth->Infinity];
 
 	WriteString[ListingsFile,"In[#]:= "<>FormattedInput<>""];
-	(*WriteString[ListingsFile,"In["<>ToString@$LstListingsLine<>"]:= "<>FormattedInput<>""];*)
 	Close@ListingsFile;
 ];
 
@@ -76,14 +78,13 @@ $ParticleSpectrographs={};
 
 SystemTest[InputExpr_]:=Module[{CommandFileName=InputExpr,CommandContent=InputExpr},
 	CommandFileName//=(#~StringDelete~" ")&;
+	CommandContent//=(#~StringDelete~" ")&;
 	If[(CommandFileName~StringContainsQ~"DefConstantSymbol["),
 		CommandFileName//=(#~StringReplace~{"DefConstantSymbol["->"DefConstantSymbol"})&;
 		CommandFileName//=(#~StringSplit~{"DefConstantSymbol","[",",","TheoryName->"})&;
 		CommandFileName//=First;
 		$LagrangianCouplingCoefficients@CommandFileName=CommandContent;
 		CommandFileName//=("LagrangianCouplingCoefficient"<>#<>".m")&;
-		CommandFileName//Print;
-		CommandContent//Print;
 	];
 	If[(CommandFileName~StringContainsQ~"DefField["),
 		CommandFileName//=(#~StringReplace~{"DefField["->"DefField"})&;
@@ -91,8 +92,6 @@ SystemTest[InputExpr_]:=Module[{CommandFileName=InputExpr,CommandContent=InputEx
 		CommandFileName//=First;
 		$FieldKinematics@CommandFileName=CommandContent;
 		CommandFileName//=("FieldKinematics"<>#<>".m")&;
-		CommandFileName//Print;
-		CommandContent//Print;
 	];
 	If[(CommandFileName~StringContainsQ~"ParticleSpectrum["),
 		CommandFileName//=(#~StringReplace~{"\""->""})&;
@@ -101,17 +100,24 @@ SystemTest[InputExpr_]:=Module[{CommandFileName=InputExpr,CommandContent=InputEx
 		CommandFileName//=(#~StringSplit~{",","TheoryName->"})&;
 		CommandFileName//=First;
 		CommandFileName//=("ParticleSpectrograph"<>#<>".m")&;
-		CommandFileName//Print;
-		CommandContent//Print;
 		CommandContent~ExportCommand~CommandFileName;
 	];
 CommandFileName];
 
-Quiet@CreateDirectory[FileNameJoin@{$xPlainWorkingDirectory,".SystemTests"}];
-Quiet@Run@("rm -rf "<>FileNameJoin@{$xPlainWorkingDirectory,".SystemTests/*"});
+$SystemTests=Module[{RepositoryName},
+	RepositoryName=RunProcess[{"git","rev-parse","--show-toplevel"}];
+	RepositoryName//=(#@"StandardOutput")&;
+	RepositoryName//Print;
+	RepositoryName//=RunProcess[{"basename",#}]&;
+	RepositoryName//=(#@"StandardOutput")&;
+	RepositoryName//=(#~StringDelete~"\n")&;
+	RepositoryName="system-tests-"<>RepositoryName;
+	RepositoryName];
+Quiet@Run@("rm -rf "<>FileNameJoin@{$xPlainWorkingDirectory,$SystemTests});
+Quiet@CreateDirectory[FileNameJoin@{$xPlainWorkingDirectory,$SystemTests}];
 ExportCommand[CommandContent_,CommandFileName_]:=Block[{ListingsFile},
 	ListingsFile=OpenAppend[
-		FileNameJoin@{$xPlainWorkingDirectory,".SystemTests",CommandFileName},
+		FileNameJoin@{$xPlainWorkingDirectory,$SystemTests,CommandFileName},
 		PageWidth->Infinity];
 	WriteString[ListingsFile,"<<xAct`PSALTer`;"<>"\n"];
 	If[(CommandContent~StringContainsQ~#),
@@ -125,15 +131,13 @@ ExportCommand[CommandContent_,CommandFileName_]:=Block[{ListingsFile},
 	Close@ListingsFile;
 ];
 
-LstCode[FullInputCode_]:=Module[{Expr,ExprLength},
+LstCode[FullInputCode_]:=Module[{Expr},
 	$ListingsOutput="Line"<>ToString@$LstListingsLine;
 	Expr=ToString[FullInputCode];
 	Expr=StringReplace[Expr,{"Defer["->""}];
 	Expr=StringDrop[Expr,-1];
 	Expr=StringReplace[Expr,{"*"->" * "}];
-	ExprLength=Expr//StringLength;
-	If[ExprLength>(2*$PadLength+$BulkLength),Expr=TakePadding[Expr,$PadLength]<>"(*omitted "<>ToString@(ExprLength-2*$PadLength)<>" characters for brevity*)"<>TakePadding[Expr,-$PadLength]];
-	LstListingCode[Expr];
+	Expr//LstListingCode;
 	$LstListingsLine+=1;
 	Expr//SystemTest;
 ];
@@ -157,7 +161,9 @@ Code[SomeVar_,SomeOtherVar_,InputCode_,opts:OptionsPattern[Cell]]:=Module[{Expr,
 		FullInputCode//CLICode;
 		,
 		FullInputCode//GUICode;
-		FullInputCode//LstCode;
+		If[$Listings,
+			FullInputCode//LstCode;
+		]
 	];
 	Expr=InputCode//RunCode;
 Expr];
