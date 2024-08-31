@@ -150,7 +150,9 @@ Code[SomeVar_,InputCode_,opts:OptionsPattern[Cell]]:=Module[{Expr,FullInputCode=
 		FullInputCode//CLICode;
 		,
 		FullInputCode//GUICode;
-		FullInputCode//LstCode;
+		If[$Listings,
+			FullInputCode//LstCode;
+		];
 	];
 	Expr=InputCode//RunCode;
 Expr];
@@ -163,7 +165,33 @@ Code[SomeVar_,SomeOtherVar_,InputCode_,opts:OptionsPattern[Cell]]:=Module[{Expr,
 		FullInputCode//GUICode;
 		If[$Listings,
 			FullInputCode//LstCode;
-		]
+		];
+	];
+	Expr=InputCode//RunCode;
+Expr];
+
+Code[SomeVar_,SomeOtherVar_,SomeOtherOtherVar_,InputCode_,opts:OptionsPattern[Cell]]:=Module[{Expr,FullInputCode=Defer@InputForm@InputCode/.OwnValues@SomeVar/.OwnValues@SomeOtherVar/.OwnValues@SomeOtherOtherVar},
+
+	If[$xPlainCLI,
+		FullInputCode//CLICode;
+		,
+		FullInputCode//GUICode;
+		If[$Listings,
+			FullInputCode//LstCode;
+		];
+	];
+	Expr=InputCode//RunCode;
+Expr];
+
+Code[SomeVar_,SomeOtherVar_,SomeOtherOtherVar_,SomeOtherOtherVar_,InputCode_,opts:OptionsPattern[Cell]]:=Module[{Expr,FullInputCode=Defer@InputForm@InputCode/.OwnValues@SomeVar/.OwnValues@SomeOtherVar/.OwnValues@SomeOtherOtherVar/.OwnValues@SomeOtherOtherOtherVar},
+
+	If[$xPlainCLI,
+		FullInputCode//CLICode;
+		,
+		FullInputCode//GUICode;
+		If[$Listings,
+			FullInputCode//LstCode;
+		];
 	];
 	Expr=InputCode//RunCode;
 Expr];
