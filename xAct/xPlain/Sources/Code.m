@@ -8,8 +8,8 @@ $PadLength=300;
 $BulkLength=1000;
 $LstListingsLine=1;
 
-(*SetAttributes[LstListingCode,HoldAll];*)
-LstListingCode[InputExpr__]:=Block[{
+Options@LstListingCode={LineLabel->"NoLineLabel"};
+LstListingCode[InputExpr__,OptionsPattern[]]:=Block[{
 	FormattedInput,
 	ExprLength,
 	ListingsFile,
@@ -21,9 +21,10 @@ LstListingCode[InputExpr__]:=Block[{
 	If[ExprLength>(2*$PadLength+$BulkLength),
 		FormattedInput=TakePadding[FormattedInput,$PadLength]<>"(*omitted "<>ToString@(ExprLength-2*$PadLength)<>" characters for brevity*)"<>TakePadding[FormattedInput,-$PadLength]];
 	Run@("rm -rf "<>FileNameJoin@{$xPlainWorkingDirectory,
-			".LstListing",$ListingsOutput<>".tex"});
+			".LstListing",(OptionValue@LineLabel)<>".tex"});
 	ListingsFile=OpenAppend[
-			FileNameJoin@{$xPlainWorkingDirectory,".LstListing",$ListingsOutput<>".tex"},
+			FileNameJoin@{$xPlainWorkingDirectory,".LstListing",(OptionValue@LineLabel)<>".tex"},
+			(*FileNameJoin@{$xPlainWorkingDirectory,".LstListing",$ListingsOutput<>".tex"},*)
 			PageWidth->Infinity];
 
 	WriteString[ListingsFile,"In[#]:= "<>FormattedInput<>""];
@@ -131,66 +132,69 @@ ExportCommand[CommandContent_,CommandFileName_]:=Block[{ListingsFile},
 	Close@ListingsFile;
 ];
 
-LstCode[FullInputCode_]:=Module[{Expr},
+Options@LstCode={LineLabel->"NoLineLabel"};
+LstCode[FullInputCode_,OptionsPattern[]]:=Module[{Expr},
+
 	$ListingsOutput="Line"<>ToString@$LstListingsLine;
 	Expr=ToString[FullInputCode];
 	Expr=StringReplace[Expr,{"Defer["->""}];
 	Expr=StringDrop[Expr,-1];
 	Expr=StringReplace[Expr,{"*"->" * "}];
-	Expr//LstListingCode;
+	LstListingCode[Expr,LineLabel->OptionValue@LineLabel];
 	$LstListingsLine+=1;
 	Expr//SystemTest;
 ];
 
-Code[InputCode_,opts:OptionsPattern[Cell]]:=Code[DummyVar,InputCode,opts];
+Options@Code={LineLabel->"NoLineLabel"};
+Code[InputCode_,otheropts:OptionsPattern[]]:=Code[DummyVar,InputCode,otheropts];
 
-Code[SomeVar_,InputCode_,opts:OptionsPattern[Cell]]:=Module[{Expr,FullInputCode=Defer@InputForm@InputCode/.OwnValues@SomeVar},
+Code[SomeVar_,InputCode_,OptionsPattern[]]:=Module[{Expr,FullInputCode=Defer@InputForm@InputCode/.OwnValues@SomeVar},
 
 	If[$xPlainCLI,
 		FullInputCode//CLICode;
 		,
 		FullInputCode//GUICode;
 		If[$Listings,
-			FullInputCode//LstCode;
+			LstCode[FullInputCode,LineLabel->OptionValue@LineLabel];
 		];
 	];
 	Expr=InputCode//RunCode;
 Expr];
 
-Code[SomeVar_,SomeOtherVar_,InputCode_,opts:OptionsPattern[Cell]]:=Module[{Expr,FullInputCode=Defer@InputForm@InputCode/.OwnValues@SomeVar/.OwnValues@SomeOtherVar},
+Code[SomeVar_,SomeOtherVar_,InputCode_,OptionsPattern[]]:=Module[{Expr,FullInputCode=Defer@InputForm@InputCode/.OwnValues@SomeVar/.OwnValues@SomeOtherVar},
 
 	If[$xPlainCLI,
 		FullInputCode//CLICode;
 		,
 		FullInputCode//GUICode;
 		If[$Listings,
-			FullInputCode//LstCode;
+			LstCode[FullInputCode,LineLabel->OptionValue@LineLabel];
 		];
 	];
 	Expr=InputCode//RunCode;
 Expr];
 
-Code[SomeVar_,SomeOtherVar_,SomeOtherOtherVar_,InputCode_,opts:OptionsPattern[Cell]]:=Module[{Expr,FullInputCode=Defer@InputForm@InputCode/.OwnValues@SomeVar/.OwnValues@SomeOtherVar/.OwnValues@SomeOtherOtherVar},
+Code[SomeVar_,SomeOtherVar_,SomeOtherOtherVar_,InputCode_,OptionsPattern[]]:=Module[{Expr,FullInputCode=Defer@InputForm@InputCode/.OwnValues@SomeVar/.OwnValues@SomeOtherVar/.OwnValues@SomeOtherOtherVar},
 
 	If[$xPlainCLI,
 		FullInputCode//CLICode;
 		,
 		FullInputCode//GUICode;
 		If[$Listings,
-			FullInputCode//LstCode;
+			LstCode[FullInputCode,LineLabel->OptionValue@LineLabel];
 		];
 	];
 	Expr=InputCode//RunCode;
 Expr];
 
-Code[SomeVar_,SomeOtherVar_,SomeOtherOtherVar_,SomeOtherOtherVar_,InputCode_,opts:OptionsPattern[Cell]]:=Module[{Expr,FullInputCode=Defer@InputForm@InputCode/.OwnValues@SomeVar/.OwnValues@SomeOtherVar/.OwnValues@SomeOtherOtherVar/.OwnValues@SomeOtherOtherOtherVar},
+Code[SomeVar_,SomeOtherVar_,SomeOtherOtherVar_,SomeOtherOtherVar_,InputCode_,OptionsPattern[]]:=Module[{Expr,FullInputCode=Defer@InputForm@InputCode/.OwnValues@SomeVar/.OwnValues@SomeOtherVar/.OwnValues@SomeOtherOtherVar/.OwnValues@SomeOtherOtherOtherVar},
 
 	If[$xPlainCLI,
 		FullInputCode//CLICode;
 		,
 		FullInputCode//GUICode;
 		If[$Listings,
-			FullInputCode//LstCode;
+			LstCode[FullInputCode,LineLabel->OptionValue@LineLabel];
 		];
 	];
 	Expr=InputCode//RunCode;
