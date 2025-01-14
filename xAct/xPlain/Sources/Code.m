@@ -69,7 +69,7 @@ CLICode[FullInputCode_]:=Module[{
 GUICode[FullInputCode_]:=Module[{},
 
 	Off@Attributes::ssle;
-	CellPrint@ExpressionCell[FullInputCode,"Input",InitializationCell->False];	
+	CellPrint@ExpressionCell[FullInputCode,"Input",InitializationCell->False,FontColor->$NWhite,Background->$NBlue];	
 	On@Attributes::ssle;
 ];
 

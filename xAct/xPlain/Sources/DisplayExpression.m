@@ -18,6 +18,6 @@ DisplayExpression[Expr_,OptionsPattern[]]:=Module[{
 		Content=Content<>"(##)";
 		DisplayCLI[Content,StyleCLI->"Expression"];
 		,
-		CellPrint@ExpressionCell[Expr,Background->LightGreen,"DisplayFormulaNumbered",CellTags->OptionValue@EqnLabel];
+		CellPrint@ExpressionCell[Expr,FontColor->$NWhite,Background->$BBlack,"DisplayFormulaNumbered",CellTags->OptionValue@EqnLabel];
 	];
 ];

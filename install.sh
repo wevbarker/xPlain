@@ -5,5 +5,6 @@
 #==================================#
 
 rsync -avh --force --exclude '*.mx' ./xAct/* ~/.Wolfram/Applications/xAct/ --delete
+rsync -avh --force --exclude '*.mx' ./xAct/* ~/.Mathematica/Applications/xAct/ --delete
 
 exit 0

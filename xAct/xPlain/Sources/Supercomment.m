@@ -7,6 +7,6 @@ Supercomment[Expr_?ListQ]:=Module[{},
 	If[$xPlainCLI,
 		DisplayCLI[("  ===> "<>StringJoin@@Flatten@Expr),StyleCLI->"Supercomment"];
 	,
-		CellPrint@Cell[TextData@({StyleBox["Key observation: ",Large]}~Join~Flatten@Expr),Darker@Green,"Text",Background->Yellow];
+		CellPrint@Cell[TextData@({StyleBox["Key observation: ",Large]}~Join~Flatten@Expr),"Text",FontColor->$NWhite,Background->$NBlue];
 	];
 ];

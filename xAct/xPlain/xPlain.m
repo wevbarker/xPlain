@@ -107,6 +107,7 @@ BuildPackage[FileName_String]:=Get[FileNameJoin@{$xPlainInstallDirectory,"Source
 (*-------------------------*)
 
 BuildPackage/@{
+	"Colors.m",
 	"DisplayCLI.m",
 	"Title.m",
 	"Chapter.m",
