@@ -48,7 +48,7 @@ If[$xPlainCLI,
 	$xPlainWorkingDirectory=NotebookDirectory[]];
 
 $Path~AppendTo~$xPlainWorkingDirectory;
-$xPlainInstallDirectory=Select[FileNameJoin[{#,"xAct/xPlain"}]&/@$Path,DirectoryQ][[1]];
+$InstallDirectory=Select[FileNameJoin[{#,"xAct/xPlain"}]&/@$Path,DirectoryQ][[1]];
 
 (*--------------*)
 (*  Disclaimer  *)
@@ -93,20 +93,17 @@ LstListingOut::usage="LstListing[Expr_] produces LaTeX listings.";
 (*legacy*)
 PartIIIProject::usage="PartIIIProject";
 Manuscript::usage="Manuscript";
-
 NovelOutput::usage="Manuscript";
 NovelEcho::usage="Manuscript";
 NovelPrint::usage="Manuscript";
 
 Begin["xAct`xPlain`Private`"];
-
-BuildPackage[FileName_String]:=Get[FileNameJoin@{$xPlainInstallDirectory,"Sources",FileName}];
-
-(*-------------------------*)
-(*  Registry of functions  *)
-(*-------------------------*)
-
-BuildPackage/@{
+IncludeHeader[FunctionName_]:=Module[{PathName},
+	PathName=$InputFileName~StringDrop~(-2);
+	PathName=FileNameJoin@{PathName,FunctionName<>".m"};
+	PathName//=Get;
+];
+RereadSources[]:=(Off@Syntax::stresc;(Get@FileNameJoin@{$InstallDirectory,"Sources",#})&/@{
 	"Colors.m",
 	"DisplayCLI.m",
 	"Title.m",
@@ -124,8 +121,7 @@ BuildPackage/@{
 	"DisplayExpression.m",
 	"DisplayEquation.m",
 	"Code.m",
-	"LstListing.m"
-};
-
+	"LstListing.m"};On@Syntax::stresc;);
+RereadSources[];
 End[];
 EndPackage[];
