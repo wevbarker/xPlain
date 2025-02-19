@@ -16,7 +16,7 @@ LstCode[FullInputCode_,OptionsPattern[]]:=Module[{Expr},
 	Expr=StringReplace[Expr,{"*"->" * "}];
 	LstListingCode[Expr,LineLabel->OptionValue@LineLabel];
 	$LstListingsLine+=1;
-	If[TestDirectoryAskedQ[],
+	If[TestDirectoryAskedQ[]&&!($SystemTests=="system-tests-"),
 		Expr//SystemTest;
 	];	
 ];
