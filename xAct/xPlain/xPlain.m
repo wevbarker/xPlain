@@ -77,6 +77,7 @@ Mlabel::usage="Mlabel";
 DisplayEquation::usage="DisplayEquation";
 DisplayExpression::usage="DisplayExpression";
 EqnLabel::usage="EqnLabel";
+Mathpix::usage="Mathpix";
 
 Code::usage="Code";
 
