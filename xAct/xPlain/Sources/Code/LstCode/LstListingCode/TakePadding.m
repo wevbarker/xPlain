@@ -2,7 +2,6 @@
 (*  TakePadding  *)
 (*===============*)
 
-$PadLength=300;
 TakePadding[InputExpr_,PadLength_]:=Module[{StringList=StringTake[InputExpr,PadLength]},
 	If[PadLength>0,
 		StringList//=StringSplit;

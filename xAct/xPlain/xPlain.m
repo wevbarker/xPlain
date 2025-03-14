@@ -99,6 +99,8 @@ NovelEcho::usage="Manuscript";
 NovelPrint::usage="Manuscript";
 
 Begin["xAct`xPlain`Private`"];
+$PadLength=300;
+$BulkLength=300;
 IncludeHeader[FunctionName_]:=Module[{PathName},
 	PathName=$InputFileName~StringDrop~(-2);
 	PathName=FileNameJoin@{PathName,FunctionName<>".m"};
