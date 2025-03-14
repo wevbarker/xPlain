@@ -9,22 +9,9 @@ IncludeHeader@"RunCode";
 
 Options@Code={LineLabel->"NoLineLabel"};
 SetAttributes[Code,HoldAll];
-Code[InputCode_,otheropts:OptionsPattern[]]:=Code[DummyVar,InputCode,otheropts];
+Code[InputCode_,CodeOptions:OptionsPattern[]]:=Code[DummyVar,InputCode,CodeOptions];
 
-Code[SomeVar_,InputCode_,OptionsPattern[]]:=Module[{Expr,FullInputCode=Defer@InputForm@InputCode/.OwnValues@SomeVar},
-
-	If[$xPlainCLI,
-		FullInputCode//CLICode;
-		,
-		FullInputCode//GUICode;
-		If[$Listings,
-			LstCode[FullInputCode,LineLabel->OptionValue@LineLabel];
-		];
-	];
-	Expr=InputCode//RunCode;
-Expr];
-
-Code[SomeVar_,SomeOtherVar_,InputCode_,OptionsPattern[]]:=Module[{Expr,FullInputCode=Defer@InputForm@InputCode/.OwnValues@SomeVar/.OwnValues@SomeOtherVar},
+Code[Var1_,InputCode_,OptionsPattern[]]:=Module[{Expr,FullInputCode=Defer@InputForm@InputCode/.OwnValues@Var1},
 
 	If[$xPlainCLI,
 		FullInputCode//CLICode;
@@ -37,7 +24,7 @@ Code[SomeVar_,SomeOtherVar_,InputCode_,OptionsPattern[]]:=Module[{Expr,FullInput
 	Expr=InputCode//RunCode;
 Expr];
 
-Code[SomeVar_,SomeOtherVar_,SomeOtherOtherVar_,InputCode_,OptionsPattern[]]:=Module[{Expr,FullInputCode=Defer@InputForm@InputCode/.OwnValues@SomeVar/.OwnValues@SomeOtherVar/.OwnValues@SomeOtherOtherVar},
+Code[Var1_,Var2_,InputCode_,OptionsPattern[]]:=Module[{Expr,FullInputCode=Defer@InputForm@InputCode/.OwnValues@Var1/.OwnValues@Var2},
 
 	If[$xPlainCLI,
 		FullInputCode//CLICode;
@@ -50,7 +37,33 @@ Code[SomeVar_,SomeOtherVar_,SomeOtherOtherVar_,InputCode_,OptionsPattern[]]:=Mod
 	Expr=InputCode//RunCode;
 Expr];
 
-Code[SomeVar_,SomeOtherVar_,SomeOtherOtherVar_,SomeOtherOtherVar_,InputCode_,OptionsPattern[]]:=Module[{Expr,FullInputCode=Defer@InputForm@InputCode/.OwnValues@SomeVar/.OwnValues@SomeOtherVar/.OwnValues@SomeOtherOtherVar/.OwnValues@SomeOtherOtherOtherVar},
+Code[Var1_,Var2_,Var3_,InputCode_,OptionsPattern[]]:=Module[{Expr,FullInputCode=Defer@InputForm@InputCode/.OwnValues@Var1/.OwnValues@Var2/.OwnValues@Var3},
+
+	If[$xPlainCLI,
+		FullInputCode//CLICode;
+		,
+		FullInputCode//GUICode;
+		If[$Listings,
+			LstCode[FullInputCode,LineLabel->OptionValue@LineLabel];
+		];
+	];
+	Expr=InputCode//RunCode;
+Expr];
+
+Code[Var1_,Var2_,Var3_,Var4_,InputCode_,OptionsPattern[]]:=Module[{Expr,FullInputCode=Defer@InputForm@InputCode/.OwnValues@Var1/.OwnValues@Var2/.OwnValues@Var3/.OwnValues@Var4},
+
+	If[$xPlainCLI,
+		FullInputCode//CLICode;
+		,
+		FullInputCode//GUICode;
+		If[$Listings,
+			LstCode[FullInputCode,LineLabel->OptionValue@LineLabel];
+		];
+	];
+	Expr=InputCode//RunCode;
+Expr];
+
+Code[Var1_,Var2_,Var3_,Var4_,Var5_,InputCode_,OptionsPattern[]]:=Module[{Expr,FullInputCode=Defer@InputForm@InputCode/.OwnValues@Var1/.OwnValues@Var2/.OwnValues@Var3/.OwnValues@Var4},
 
 	If[$xPlainCLI,
 		FullInputCode//CLICode;
