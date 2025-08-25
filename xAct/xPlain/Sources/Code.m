@@ -7,7 +7,7 @@ IncludeHeader@"CLICode";
 IncludeHeader@"GUICode";
 IncludeHeader@"RunCode";
 
-Options@Code={LineLabel->"NoLineLabel"};
+Options@Code={LineLabel->"NoLineLabel",Execute->True};
 SetAttributes[Code,HoldAll];
 Code[InputCode_,CodeOptions:OptionsPattern[]]:=Code[DummyVar,InputCode,CodeOptions];
 
@@ -21,7 +21,9 @@ Code[Var1_,InputCode_,OptionsPattern[]]:=Module[{Expr,FullInputCode=Defer@InputF
 			LstCode[FullInputCode,LineLabel->OptionValue@LineLabel];
 		];
 	];
-	Expr=InputCode//RunCode;
+	If[OptionValue@Execute,
+		Expr=InputCode//RunCode;
+	];
 Expr];
 
 Code[Var1_,Var2_,InputCode_,OptionsPattern[]]:=Module[{Expr,FullInputCode=Defer@InputForm@InputCode/.OwnValues@Var1/.OwnValues@Var2},

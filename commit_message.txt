@@ -1,0 +1,11 @@
+Add Execute option to Code function for conditional code execution
+
+Enhanced Code function with new Execute option:
+
+- Added Execute->True as default option to Code function in Sources/Code.m  
+- Modified Code function logic to conditionally execute InputCode based on Execute option
+- Added Execute usage declaration in main xPlain.m package file
+- Maintains backward compatibility with Execute->True as default behavior
+- Allows users to display code without executing it when Execute->False
+
+This provides more flexible control over code display and execution in xPlain documents, useful for showing example code or demonstrations without actually running the computations.

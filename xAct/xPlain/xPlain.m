@@ -80,6 +80,7 @@ EqnLabel::usage="EqnLabel";
 Mathpix::usage="Mathpix";
 
 Code::usage="Code";
+Execute::usage="Execute";
 
 $PaperPrint::usage="$PaperPrint is a global bool.";
 $PaperPrint=False;
